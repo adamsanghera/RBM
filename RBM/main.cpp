@@ -8,8 +8,14 @@
 
 #include <iostream>
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+int main() {
+    
+    
+    //  Structure:
+    //      Unit:       These units include Hidden and Visible units
+    //      Layer:      Layers contain units
+    //      Network:    Contains layers
+    //  How do we handle edges?  Stochastic stuff?
+    //  When we're back-propagating, what level should that be at?  Presumably layer.
+    //  Should layers have links to other layers?  -- Probably not
 }
