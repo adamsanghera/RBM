@@ -6,11 +6,20 @@
 //  Copyright (c) 2015 adamSanghera. All rights reserved.
 //
 
-#include <iostream>
+#include "Network.h"
+
 
 int main() {
+    Boltzmann::Network n(10);
+    Boltzmann::Layer l(5);
+    n.pushLayer(l);
+    n.pushLayer(Boltzmann::Layer(2));
     
+    Boltzmann::Matrix y(3,6);
+    Boltzmann::Matrix z(3,6);
+    Boltzmann::Matrix w(3,6);
     
+    std::cout << "Ha!\n";
     //  Structure:
     //      Unit:       These units include Hidden and Visible units
     //      Layer:      Layers contain units

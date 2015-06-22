@@ -10,12 +10,14 @@
 #define __RBM__Unit__
 
 #include <stdio.h>
+#include "BoltzmannDistribution.h"
 
 namespace Boltzmann {
     class Unit {
     public:
-        Unit();
-        virtual bool ping() const = 0;
+        Unit() {}
+        virtual bool ping(double energyDifferential, BoltzmannDistribution b) const = 0;
+        virtual ~Unit() { }
     private:
         
     };
