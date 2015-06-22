@@ -62,12 +62,8 @@
 		2D6C1B581B387B06006BF902 /* Network Structure */ = {
 			isa = PBXGroup;
 			children = (
-				2DC30DA11B333D5F00F40701 /* Matrix.cpp */,
-				2DC30DA21B333D5F00F40701 /* Matrix.h */,
-				2DC30D941B3217A300F40701 /* Network.cpp */,
-				2DC30D951B3217A300F40701 /* Network.h */,
-				2DC30D911B32179400F40701 /* Layer.cpp */,
-				2DC30D921B32179400F40701 /* Layer.h */,
+				2D6C1B5B1B387DC4006BF902 /* Implementation Files */,
+				2D6C1B5A1B387DBA006BF902 /* Header Files */,
 			);
 			name = "Network Structure";
 			sourceTree = "<group>";
@@ -79,6 +75,46 @@
 				2DC30D9F1B32295F00F40701 /* BoltzmannDistribution.h */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		2D6C1B5A1B387DBA006BF902 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DC30DA21B333D5F00F40701 /* Matrix.h */,
+				2DC30D951B3217A300F40701 /* Network.h */,
+				2DC30D921B32179400F40701 /* Layer.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		2D6C1B5B1B387DC4006BF902 /* Implementation Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DC30DA11B333D5F00F40701 /* Matrix.cpp */,
+				2DC30D941B3217A300F40701 /* Network.cpp */,
+				2DC30D911B32179400F40701 /* Layer.cpp */,
+			);
+			name = "Implementation Files";
+			sourceTree = "<group>";
+		};
+		2D6C1B5C1B387DCF006BF902 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DC30D9B1B32182F00F40701 /* VisibleUnit.h */,
+				2DC30D981B32182300F40701 /* HiddenUnit.h */,
+				2DC30D8F1B32126600F40701 /* Unit.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		2D6C1B5D1B387DD7006BF902 /* Implementation Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DC30D9A1B32182F00F40701 /* VisibleUnit.cpp */,
+				2DC30D971B32182300F40701 /* HiddenUnit.cpp */,
+				2DC30D8E1B32126600F40701 /* Unit.cpp */,
+			);
+			name = "Implementation Files";
 			sourceTree = "<group>";
 		};
 		2DC30D7B1B32125500F40701 = {
@@ -101,9 +137,9 @@
 			isa = PBXGroup;
 			children = (
 				2DC30D871B32125500F40701 /* main.cpp */,
-				2D6C1B591B387B22006BF902 /* Resources */,
 				2D6C1B581B387B06006BF902 /* Network Structure */,
 				2DC30D9D1B3218B800F40701 /* Units */,
+				2D6C1B591B387B22006BF902 /* Resources */,
 			);
 			path = RBM;
 			sourceTree = "<group>";
@@ -111,12 +147,8 @@
 		2DC30D9D1B3218B800F40701 /* Units */ = {
 			isa = PBXGroup;
 			children = (
-				2DC30D9A1B32182F00F40701 /* VisibleUnit.cpp */,
-				2DC30D9B1B32182F00F40701 /* VisibleUnit.h */,
-				2DC30D971B32182300F40701 /* HiddenUnit.cpp */,
-				2DC30D981B32182300F40701 /* HiddenUnit.h */,
-				2DC30D8E1B32126600F40701 /* Unit.cpp */,
-				2DC30D8F1B32126600F40701 /* Unit.h */,
+				2D6C1B5D1B387DD7006BF902 /* Implementation Files */,
+				2D6C1B5C1B387DCF006BF902 /* Header Files */,
 			);
 			name = Units;
 			sourceTree = "<group>";
