@@ -18,6 +18,7 @@
 
 namespace Boltzmann {
     class Matrix {
+        friend class Machine;
     public:
         Matrix(size_t lowerLayerSize, size_t higherLayerSize);
         Matrix(std::vector<int> lower, std::vector<int> higher, double learningRate);
@@ -26,8 +27,18 @@ namespace Boltzmann {
         double getWeight(size_t lowerUnitIndex, size_t higherUnitIndex) const { return weights[lowerUnitIndex][higherUnitIndex]; }
         void adjustWeight(size_t lowerUnitIndex, size_t higherUnitIndex, double newWeight) { weights[lowerUnitIndex][higherUnitIndex]=newWeight;}
         
+        Matrix& operator*=(const double rhs) {
+            for (int i = 0; i < weights.size(); ++i)
+                for (int j = 0 ; j < weights[i].size(); ++j)
+                    weights[i][j] *= rhs;
+            return *this;
+        }
+        Matrix operator*(const double rhs) { return Matrix(*this) *= rhs; }
         Matrix& operator-=(const Matrix& rhs);
         Matrix operator-(const Matrix& rhs);
+        Matrix operator+(const Matrix& rhs);
+        Matrix& operator+=(const Matrix& rhs);
+        
         Matrix& operator=(const Matrix& rhs);
     private:
         size_t sizeOfHigherLayer, sizeOfLowerLayer;

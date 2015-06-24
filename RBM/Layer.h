@@ -10,23 +10,25 @@
 #define __RBM__Layer__
 
 #include <stdio.h>
-#include "VisibleUnit.h"
-#include "HiddenUnit.h"
+#include "Unit.h"
 #include <vector>
 
 namespace Boltzmann {
     class Layer {
-        friend class Network;
+        friend class Machine;
     public:
-        Layer(size_t numberOfUnits, bool isVisible = false);
+        Layer(size_t numberOfUnits);
         Layer(const Layer& rhs);
-        ~Layer() { for (int i = 0; i < listOfUnits.size(); ++i) delete listOfUnits[i]; }
         
-        void clampState(size_t unitIndex, bool state);
+        std::vector<int>    getStates () const;
+        void    clampStateOfUnit (size_t unitIndex, bool state);
+        void    clampStateOfUnits (std::vector<int> states);
+        bool    ping (size_t unitIndex, double eDiff, BoltzmannDistribution bd) const;
+        
+        ~Layer();
     private:
         std::vector<Unit*> listOfUnits;
         size_t numUnits;
-        bool isVisible;
     };
 }
 

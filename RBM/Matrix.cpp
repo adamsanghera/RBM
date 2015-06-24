@@ -54,7 +54,7 @@ void Boltzmann::Matrix::randomizeWeights() {
 Boltzmann::Matrix& Boltzmann::Matrix::operator-=(const Boltzmann::Matrix& rhs) {
     if (sizeOfLowerLayer == rhs.sizeOfLowerLayer && sizeOfHigherLayer == rhs.sizeOfHigherLayer)
         for (int i = 0; i < weights.size(); ++i)
-            for (int j = 0; j < weights.size(); ++j)
+            for (int j = 0; j < weights[i].size(); ++j)
                 weights[i][j] -= rhs.weights[i][j];
     else std::cerr << "You cannot compare matrices of different dimensions.";
     return *this;
@@ -67,6 +67,19 @@ Boltzmann::Matrix& Boltzmann::Matrix::operator=(const Boltzmann::Matrix& rhs) {
     sizeOfHigherLayer = rhs.sizeOfHigherLayer;
     sizeOfLowerLayer = rhs.sizeOfLowerLayer;
     weights = rhs.weights;
+    return *this;
+}
+
+Boltzmann::Matrix Boltzmann::Matrix::operator+(const Matrix& rhs) {
+    return Matrix(*this) +=rhs;
+}
+
+Boltzmann::Matrix& Boltzmann::Matrix::operator+=(const Matrix& rhs) {
+    if (sizeOfLowerLayer == rhs.sizeOfLowerLayer && sizeOfHigherLayer == rhs.sizeOfHigherLayer)
+        for (int i = 0; i < weights.size(); ++i)
+            for (int j = 0; j < weights[i].size(); ++j)
+                weights[i][j] += rhs.weights[i][j];
+    else std::cerr << "You cannot compare matrices of different dimensions.";
     return *this;
 }
 

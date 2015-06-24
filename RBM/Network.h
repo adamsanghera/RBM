@@ -10,25 +10,24 @@
 #define __RBM__Network__
 
 #include <stdio.h>
-#include "Layer.h"
+#include "Machine.h"
 #include "Matrix.h"
 
 namespace Boltzmann {
     class Network {
     public:
         Network(size_t soBL,  BoltzmannDistribution bd = BoltzmannDistribution(1));
-        void updateBoltDist(BoltzmannDistribution bdNew) { dist = bdNew; }
         
-        void pushLayer(Layer l);
-        void swapOutInput(std::vector<bool> inputs);
-        void iterateLearnCycle(double learningRate);
+        void updateBoltDist     (BoltzmannDistribution bdNew) { dist = bdNew; }
+        void pushLayer          (size_t sizeOfNewLayer);
+        void swapOutInput       (std::vector<bool> inputs);
+        void iterateLearnCycle  (double learningRate);
         
+        ~Network();
     private:
-        std::vector<Layer*> listOfLayers;
-        size_t numLayers;
-        size_t sizeOfBaseLayer;
+        std::vector<Machine*> listOfMachines;
         BoltzmannDistribution dist;
-        std::vector<Matrix> listOfWeightMatrices;
+        size_t numMachines, sizeOfBaseLayer;
     };
 }
 

@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D6C1B601B389BC4006BF902 /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C1B5E1B389BC4006BF902 /* Machine.cpp */; };
+		2D6C1B631B38B9E2006BF902 /* Unit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C1B611B38B9E2006BF902 /* Unit.cpp */; };
 		2DC30D881B32125500F40701 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D871B32125500F40701 /* main.cpp */; };
-		2DC30D901B32126600F40701 /* Unit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D8E1B32126600F40701 /* Unit.cpp */; };
 		2DC30D931B32179400F40701 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D911B32179400F40701 /* Layer.cpp */; };
 		2DC30D961B3217A300F40701 /* Network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D941B3217A300F40701 /* Network.cpp */; };
-		2DC30D991B32182300F40701 /* HiddenUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D971B32182300F40701 /* HiddenUnit.cpp */; };
-		2DC30D9C1B32182F00F40701 /* VisibleUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D9A1B32182F00F40701 /* VisibleUnit.cpp */; };
 		2DC30DA01B32295F00F40701 /* BoltzmannDistribution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D9E1B32295F00F40701 /* BoltzmannDistribution.cpp */; };
 		2DC30DA31B333D5F00F40701 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30DA11B333D5F00F40701 /* Matrix.cpp */; };
 /* End PBXBuildFile section */
@@ -30,18 +29,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D6C1B5E1B389BC4006BF902 /* Machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Machine.cpp; sourceTree = "<group>"; };
+		2D6C1B5F1B389BC4006BF902 /* Machine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Machine.h; sourceTree = "<group>"; };
+		2D6C1B611B38B9E2006BF902 /* Unit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Unit.cpp; sourceTree = "<group>"; };
+		2D6C1B621B38B9E2006BF902 /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		2DC30D841B32125500F40701 /* RBM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RBM; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DC30D871B32125500F40701 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2DC30D8E1B32126600F40701 /* Unit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Unit.cpp; sourceTree = "<group>"; };
-		2DC30D8F1B32126600F40701 /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 		2DC30D911B32179400F40701 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
 		2DC30D921B32179400F40701 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
 		2DC30D941B3217A300F40701 /* Network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Network.cpp; sourceTree = "<group>"; };
 		2DC30D951B3217A300F40701 /* Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Network.h; sourceTree = "<group>"; };
-		2DC30D971B32182300F40701 /* HiddenUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HiddenUnit.cpp; sourceTree = "<group>"; };
-		2DC30D981B32182300F40701 /* HiddenUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiddenUnit.h; sourceTree = "<group>"; };
-		2DC30D9A1B32182F00F40701 /* VisibleUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VisibleUnit.cpp; sourceTree = "<group>"; };
-		2DC30D9B1B32182F00F40701 /* VisibleUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisibleUnit.h; sourceTree = "<group>"; };
 		2DC30D9E1B32295F00F40701 /* BoltzmannDistribution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoltzmannDistribution.cpp; sourceTree = "<group>"; };
 		2DC30D9F1B32295F00F40701 /* BoltzmannDistribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoltzmannDistribution.h; sourceTree = "<group>"; };
 		2DC30DA11B333D5F00F40701 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
@@ -80,9 +77,11 @@
 		2D6C1B5A1B387DBA006BF902 /* Header Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C1B5F1B389BC4006BF902 /* Machine.h */,
 				2DC30DA21B333D5F00F40701 /* Matrix.h */,
 				2DC30D951B3217A300F40701 /* Network.h */,
 				2DC30D921B32179400F40701 /* Layer.h */,
+				2D6C1B621B38B9E2006BF902 /* Unit.h */,
 			);
 			name = "Header Files";
 			sourceTree = "<group>";
@@ -90,29 +89,11 @@
 		2D6C1B5B1B387DC4006BF902 /* Implementation Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C1B5E1B389BC4006BF902 /* Machine.cpp */,
 				2DC30DA11B333D5F00F40701 /* Matrix.cpp */,
 				2DC30D941B3217A300F40701 /* Network.cpp */,
 				2DC30D911B32179400F40701 /* Layer.cpp */,
-			);
-			name = "Implementation Files";
-			sourceTree = "<group>";
-		};
-		2D6C1B5C1B387DCF006BF902 /* Header Files */ = {
-			isa = PBXGroup;
-			children = (
-				2DC30D9B1B32182F00F40701 /* VisibleUnit.h */,
-				2DC30D981B32182300F40701 /* HiddenUnit.h */,
-				2DC30D8F1B32126600F40701 /* Unit.h */,
-			);
-			name = "Header Files";
-			sourceTree = "<group>";
-		};
-		2D6C1B5D1B387DD7006BF902 /* Implementation Files */ = {
-			isa = PBXGroup;
-			children = (
-				2DC30D9A1B32182F00F40701 /* VisibleUnit.cpp */,
-				2DC30D971B32182300F40701 /* HiddenUnit.cpp */,
-				2DC30D8E1B32126600F40701 /* Unit.cpp */,
+				2D6C1B611B38B9E2006BF902 /* Unit.cpp */,
 			);
 			name = "Implementation Files";
 			sourceTree = "<group>";
@@ -138,19 +119,9 @@
 			children = (
 				2DC30D871B32125500F40701 /* main.cpp */,
 				2D6C1B581B387B06006BF902 /* Network Structure */,
-				2DC30D9D1B3218B800F40701 /* Units */,
 				2D6C1B591B387B22006BF902 /* Resources */,
 			);
 			path = RBM;
-			sourceTree = "<group>";
-		};
-		2DC30D9D1B3218B800F40701 /* Units */ = {
-			isa = PBXGroup;
-			children = (
-				2D6C1B5D1B387DD7006BF902 /* Implementation Files */,
-				2D6C1B5C1B387DCF006BF902 /* Header Files */,
-			);
-			name = Units;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,14 +180,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D6C1B631B38B9E2006BF902 /* Unit.cpp in Sources */,
 				2DC30DA31B333D5F00F40701 /* Matrix.cpp in Sources */,
 				2DC30DA01B32295F00F40701 /* BoltzmannDistribution.cpp in Sources */,
-				2DC30D9C1B32182F00F40701 /* VisibleUnit.cpp in Sources */,
 				2DC30D931B32179400F40701 /* Layer.cpp in Sources */,
 				2DC30D881B32125500F40701 /* main.cpp in Sources */,
-				2DC30D991B32182300F40701 /* HiddenUnit.cpp in Sources */,
+				2D6C1B601B389BC4006BF902 /* Machine.cpp in Sources */,
 				2DC30D961B3217A300F40701 /* Network.cpp in Sources */,
-				2DC30D901B32126600F40701 /* Unit.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,13 +11,16 @@
 
 int main() {
     Boltzmann::Network n(10);
-    Boltzmann::Layer l(5);
-    n.pushLayer(l);
-    n.pushLayer(Boltzmann::Layer(2));
+    Boltzmann::Machine m(3, 2);
+    Boltzmann::BoltzmannDistribution bd(.5);
+    Boltzmann::BoltzmannDistribution bd2(2);
+    Boltzmann::BoltzmannDistribution bd3(4);
+    std::vector<bool> inputs;
+    inputs.push_back(true);
+    inputs.push_back(false);
+    inputs.push_back(false);
+    m.replaceVisibleLayer(inputs);
     
-    Boltzmann::Matrix y(3,6);
-    Boltzmann::Matrix z(3,6);
-    Boltzmann::Matrix w(3,6);
     
     std::cout << "Ha!\n";
     //  Structure:
