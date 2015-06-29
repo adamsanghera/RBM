@@ -16,8 +16,11 @@
 namespace Boltzmann {
     class BoltzmannDistribution {
     public:
-        BoltzmannDistribution(double tValue): tValue(tValue) {}
-        double getProb(double input) const;
+        //  Constructor
+            BoltzmannDistribution(double tValue): tValue(tValue) {}
+        
+        //  Misc. Essential Methods
+            double getProb(double input) const;
     private:
         double tValue;
     };

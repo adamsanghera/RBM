@@ -14,6 +14,7 @@
 		2DC30D961B3217A300F40701 /* Network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D941B3217A300F40701 /* Network.cpp */; };
 		2DC30DA01B32295F00F40701 /* BoltzmannDistribution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D9E1B32295F00F40701 /* BoltzmannDistribution.cpp */; };
 		2DC30DA31B333D5F00F40701 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30DA11B333D5F00F40701 /* Matrix.cpp */; };
+		2DFE15611B3B670B0004D5A2 /* SimilarityTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DFE155F1B3B670B0004D5A2 /* SimilarityTester.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,16 @@
 		2D6C1B5F1B389BC4006BF902 /* Machine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Machine.h; sourceTree = "<group>"; };
 		2D6C1B611B38B9E2006BF902 /* Unit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Unit.cpp; sourceTree = "<group>"; };
 		2D6C1B621B38B9E2006BF902 /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
+		2D6C1B671B3B341B006BF902 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		2D6C1B681B3B341B006BF902 /* 10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 10.jpg; sourceTree = "<group>"; };
+		2D6C1B691B3B341B006BF902 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		2D6C1B6A1B3B341B006BF902 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		2D6C1B6B1B3B341B006BF902 /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
+		2D6C1B6C1B3B341B006BF902 /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
+		2D6C1B6D1B3B341B006BF902 /* 6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.jpg; sourceTree = "<group>"; };
+		2D6C1B6E1B3B341B006BF902 /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpg; sourceTree = "<group>"; };
+		2D6C1B6F1B3B341B006BF902 /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
+		2D6C1B701B3B341B006BF902 /* 9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.jpg; sourceTree = "<group>"; };
 		2DC30D841B32125500F40701 /* RBM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RBM; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DC30D871B32125500F40701 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2DC30D911B32179400F40701 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
@@ -43,6 +54,8 @@
 		2DC30D9F1B32295F00F40701 /* BoltzmannDistribution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoltzmannDistribution.h; sourceTree = "<group>"; };
 		2DC30DA11B333D5F00F40701 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrix.cpp; sourceTree = "<group>"; };
 		2DC30DA21B333D5F00F40701 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		2DFE155F1B3B670B0004D5A2 /* SimilarityTester.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimilarityTester.cpp; sourceTree = "<group>"; };
+		2DFE15601B3B670B0004D5A2 /* SimilarityTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimilarityTester.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,8 +81,11 @@
 		2D6C1B591B387B22006BF902 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C1B651B3B341B006BF902 /* Digits */,
 				2DC30D9E1B32295F00F40701 /* BoltzmannDistribution.cpp */,
 				2DC30D9F1B32295F00F40701 /* BoltzmannDistribution.h */,
+				2DFE155F1B3B670B0004D5A2 /* SimilarityTester.cpp */,
+				2DFE15601B3B670B0004D5A2 /* SimilarityTester.h */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -77,11 +93,11 @@
 		2D6C1B5A1B387DBA006BF902 /* Header Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C1B621B38B9E2006BF902 /* Unit.h */,
 				2D6C1B5F1B389BC4006BF902 /* Machine.h */,
 				2DC30DA21B333D5F00F40701 /* Matrix.h */,
 				2DC30D951B3217A300F40701 /* Network.h */,
 				2DC30D921B32179400F40701 /* Layer.h */,
-				2D6C1B621B38B9E2006BF902 /* Unit.h */,
 			);
 			name = "Header Files";
 			sourceTree = "<group>";
@@ -89,13 +105,38 @@
 		2D6C1B5B1B387DC4006BF902 /* Implementation Files */ = {
 			isa = PBXGroup;
 			children = (
+				2D6C1B611B38B9E2006BF902 /* Unit.cpp */,
 				2D6C1B5E1B389BC4006BF902 /* Machine.cpp */,
 				2DC30DA11B333D5F00F40701 /* Matrix.cpp */,
 				2DC30D941B3217A300F40701 /* Network.cpp */,
 				2DC30D911B32179400F40701 /* Layer.cpp */,
-				2D6C1B611B38B9E2006BF902 /* Unit.cpp */,
 			);
 			name = "Implementation Files";
+			sourceTree = "<group>";
+		};
+		2D6C1B651B3B341B006BF902 /* Digits */ = {
+			isa = PBXGroup;
+			children = (
+				2D6C1B661B3B341B006BF902 /* 2 */,
+			);
+			path = Digits;
+			sourceTree = "<group>";
+		};
+		2D6C1B661B3B341B006BF902 /* 2 */ = {
+			isa = PBXGroup;
+			children = (
+				2D6C1B671B3B341B006BF902 /* 1.jpg */,
+				2D6C1B681B3B341B006BF902 /* 10.jpg */,
+				2D6C1B691B3B341B006BF902 /* 2.jpg */,
+				2D6C1B6A1B3B341B006BF902 /* 3.jpg */,
+				2D6C1B6B1B3B341B006BF902 /* 4.jpg */,
+				2D6C1B6C1B3B341B006BF902 /* 5.jpg */,
+				2D6C1B6D1B3B341B006BF902 /* 6.jpg */,
+				2D6C1B6E1B3B341B006BF902 /* 7.jpg */,
+				2D6C1B6F1B3B341B006BF902 /* 8.jpg */,
+				2D6C1B701B3B341B006BF902 /* 9.jpg */,
+			);
+			path = 2;
 			sourceTree = "<group>";
 		};
 		2DC30D7B1B32125500F40701 = {
@@ -183,6 +224,7 @@
 				2D6C1B631B38B9E2006BF902 /* Unit.cpp in Sources */,
 				2DC30DA31B333D5F00F40701 /* Matrix.cpp in Sources */,
 				2DC30DA01B32295F00F40701 /* BoltzmannDistribution.cpp in Sources */,
+				2DFE15611B3B670B0004D5A2 /* SimilarityTester.cpp in Sources */,
 				2DC30D931B32179400F40701 /* Layer.cpp in Sources */,
 				2DC30D881B32125500F40701 /* main.cpp in Sources */,
 				2D6C1B601B389BC4006BF902 /* Machine.cpp in Sources */,
@@ -196,7 +238,7 @@
 		2DC30D891B32125500F40701 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -226,17 +268,23 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/DeveloperTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		2DC30D8A1B32125500F40701 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -261,23 +309,43 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/DeveloperTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
 		2DC30D8C1B32125500F40701 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/DeveloperTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/usr/local/include/**",
+				);
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/X11/** /usr/local/lib/**";
 			};
 			name = Debug;
 		};
 		2DC30D8D1B32125500F40701 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/DeveloperTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/usr/local/include/**",
+				);
+				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/X11/** /usr/local/lib/**";
 			};
 			name = Release;
 		};

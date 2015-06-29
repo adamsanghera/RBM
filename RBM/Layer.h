@@ -16,18 +16,22 @@
 namespace Boltzmann {
     class Layer {
         friend class Machine;
+        friend class Network;
     public:
-        Layer(size_t numberOfUnits);
-        Layer(const Layer& rhs);
+        //  Constructors
+            Layer(size_t numberOfUnits);
+            Layer(const Layer& rhs);
         
-        std::vector<int>    getStates () const;
-        void    clampStateOfUnit (size_t unitIndex, bool state);
-        void    clampStateOfUnits (std::vector<int> states);
-        bool    ping (size_t unitIndex, double eDiff, BoltzmannDistribution bd) const;
+        //  Misc. Methods
+            std::vector<int> getStates() const;
+            void clampStateOfUnit (size_t unitIndex, bool state);
+            void clampStateOfUnits (std::vector<int> states);
+            bool ping (size_t unitIndex, double eDiff, BoltzmannDistribution& bd) const;
         
-        ~Layer();
+        //  Layer Destructor
+            ~Layer();
     private:
-        std::vector<Unit*> listOfUnits;
+        std::vector<Boltzmann::Unit*> listOfUnits;
         size_t numUnits;
     };
 }

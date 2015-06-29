@@ -17,17 +17,25 @@ namespace Boltzmann {
     class Machine {
         friend class Network;
     public:
-        Machine(size_t sizeOfBase, size_t sizeOfTop);
-        Machine(Layer* vis, Layer* hid);
+        //  Constructors
+            Machine(size_t sizeOfBase, size_t sizeOfTop);
+            Machine(Layer* const vis, Layer* const hid);
+
+        //  Misc. Essential Methods
+            void stochasticUpPass(BoltzmannDistribution& bd);
+            void stochasticDownPass(BoltzmannDistribution& bd);
+            void determinsticUpPass();
+            void iterateLearning(double learnRate, BoltzmannDistribution& bd, size_t numberOfExchanges = 100);
+            void replaceVisibleLayer(std::vector<bool> inputs);
         
-        void stochasticUpPass(double learnRate, BoltzmannDistribution bd);
-        void stochasticDownPass(double learnRate, BoltzmannDistribution bd);
-        void generateData(BoltzmannDistribution bd);
-        void iterateLearning(double learnRate, BoltzmannDistribution bd, size_t numberOfExchanges = 100);
-        void replaceVisibleLayer(std::vector<bool> inputs);
+        /*  Begin Experimental Section */
+            void softMaxClamp(size_t numberOfUnitsToClamp);
+        /*  End Experimental Section */
         
-        ~Machine() { delete hiddenLayer; delete visibleLayer; }
+        //  Machine Destructor
+            ~Machine();
     private:
+        void adjustWeights(bool increment, double learnRate);
         Layer* hiddenLayer;
         Layer* visibleLayer;
         Matrix weights;

@@ -8,18 +8,20 @@
 
 #include "Unit.h"
 
-bool Boltzmann::Unit::ping(double energyDifferential, BoltzmannDistribution b) {
-    //  energydiff = summation (weights times states) aka b
-    //  totalInput (a) = bias (optional) + summation of weights*states (b)
-    
-    double prob = b.getProb(energyDifferential);  // 1 = certain, 0 = never
-    srand(time(nullptr));
-    double out = rand() % (1000);
-    double realOut = out / 1000;
-    if (realOut < prob) {
-        state = true;
-        return true;
+//  Boltzmann::Unit::ping
+//  -   Stochastically pings a new state, depending on the passed-in energeyDifferential value and the passed-in Boltzmann Distribution model
+//  *   Calls a method in the Boltzmann::BoltzmannDistribution class, 'getProb' to sample from the Boltzmann Distribution.
+//  ~   This is the most fundamental method in the Boltzmann::Network Hierarchy.  It is essential for learning.
+
+    bool Boltzmann::Unit::ping(double energyDifferential, BoltzmannDistribution& b) {
+        double prob = b.getProb(energyDifferential);
+        srand(time(nullptr));
+        double out = rand() % (1000);
+        double realOut = out / 1000;
+        if (realOut < prob) {
+            state = true;
+            return true;
+        }
+        state = false;
+        return false;
     }
-    state = false;
-    return false;
-}

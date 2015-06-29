@@ -12,22 +12,34 @@
 #include <stdio.h>
 #include "Machine.h"
 #include "Matrix.h"
+#include <string>
+//#include "CIMG/CImg.h"
 
 namespace Boltzmann {
     class Network {
     public:
-        Network(size_t soBL,  BoltzmannDistribution bd = BoltzmannDistribution(1));
+        //  Constructors
+            Network(size_t soBL, size_t soHL = 50,  BoltzmannDistribution bd = BoltzmannDistribution(1));
         
-        void updateBoltDist     (BoltzmannDistribution bdNew) { dist = bdNew; }
-        void pushLayer          (size_t sizeOfNewLayer);
-        void swapOutInput       (std::vector<bool> inputs);
-        void iterateLearnCycle  (double learningRate);
+        //  Misc. Essential Methods
+            void updateBoltDist (BoltzmannDistribution bdNew) { dist = bdNew; }
+            void pushLayer (size_t sizeOfNewLayer);
+            void swapOutInput (std::vector<bool> inputs);
+            void iterateLearnCycle (double learningRate, size_t numberOfIts);
+            void swapWithRandomInput();
+            void generateInput();
+
+        //  Misc. Helpful Methods
+            std::string extractVisibleLayerAsString();
+            void printNetwork();
         
-        ~Network();
+        //  Destructor
+            ~Network();
     private:
         std::vector<Machine*> listOfMachines;
         BoltzmannDistribution dist;
         size_t numMachines, sizeOfBaseLayer;
+        
     };
 }
 

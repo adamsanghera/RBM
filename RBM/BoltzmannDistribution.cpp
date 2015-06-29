@@ -8,7 +8,10 @@
 
 #include "BoltzmannDistribution.h"
 
-double Boltzmann::BoltzmannDistribution::getProb(double energyDifferential) const {
-    double denom = (1 + exp(-energyDifferential/tValue));
-    return 1/denom;
-}
+//  Boltzmann::BoltzmannDistribution::getProb
+//  -   returns the result of a logistic equation 1/(1+exp(-energyDifferential/tValue))
+
+    double Boltzmann::BoltzmannDistribution::getProb(double energyDifferential) const {
+        double denom = (1 + exp(-energyDifferential/tValue));
+        return 1/denom;
+    }

@@ -7,21 +7,43 @@
 //
 
 #include "Network.h"
+#include "SimilarityTester.h"
 
+class timer;
+
+using namespace std;
+using namespace Boltzmann;
 
 int main() {
-    Boltzmann::Network n(10);
-    Boltzmann::Machine m(3, 2);
-    Boltzmann::BoltzmannDistribution bd(.5);
-    Boltzmann::BoltzmannDistribution bd2(2);
-    Boltzmann::BoltzmannDistribution bd3(4);
-    std::vector<bool> inputs;
-    inputs.push_back(true);
-    inputs.push_back(false);
-    inputs.push_back(false);
-    m.replaceVisibleLayer(inputs);
+    Matrix a(2,3);
     
     
+//    std::vector<double> tests;
+//    std::vector<double> testTimes;
+//    timer t;
+//    for (int i = 0; i < 10; ++i) {
+//        t.start();
+//        Boltzmann::Network n(324, 500);
+//        n.pushLayer(500);
+//        n.pushLayer(2000);
+//        n.swapWithRandomInput();
+//        std::string start = n.extractVisibleLayerAsString();
+//        
+//        n.iterateLearnCycle(.3, 3);
+//        n.generateInput();
+//        std::string finish = n.extractVisibleLayerAsString();
+//        
+//        SimilarityTester st(start, finish);
+//        std::cout << st.test() << "\n";
+//        tests.push_back(st.test());
+//        testTimes.push_back(t.elapsedTime());
+//    }
+//    for (int i = 0; i < tests.size(); ++i) {
+//        std::cout << tests[i] << "\n";
+//    }
+//    for (int i = 0; i < testTimes.size(); ++i) {
+//        std::cout << testTimes[i] << "\n";
+//    }
     std::cout << "Ha!\n";
     //  Structure:
     //      Unit:       These units include Hidden and Visible units
@@ -31,3 +53,20 @@ int main() {
     //  When we're back-propagating, what level should that be at?  Presumably layer.
     //  Should layers have links to other layers?  -- Probably not
 }
+
+class timer {
+private:
+    unsigned long begTime;
+public:
+    void start() {
+        begTime = clock();
+    }
+    
+    unsigned long elapsedTime() {
+        return ((unsigned long) clock() - begTime) / CLOCKS_PER_SEC;
+    }
+    
+    bool isTimeout(unsigned long seconds) {
+        return seconds >= elapsedTime();
+    }
+};

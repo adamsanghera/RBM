@@ -15,15 +15,20 @@
 #include "random"
 #include "iostream"
 
+
 namespace Boltzmann {
     class Unit {
     public:
-        Unit(bool state): state(state) {}
-        bool pingState()  {
-            return state;
-        }
-        bool ping(double energyDifferential, BoltzmannDistribution b);
-        ~Unit() { }
+        //  Constructor
+            Unit(bool state): state(state) {}
+        
+        //  Misc. Essential Methods
+            bool pingState()  { return state; }
+            bool ping(double energyDifferential, BoltzmannDistribution& b);
+            void clampState(bool newState) { state = newState; }
+
+        //  Unit Destructor
+            ~Unit() { }
     private:
         bool state;
     };
