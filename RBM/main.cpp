@@ -15,9 +15,70 @@ using namespace std;
 using namespace Boltzmann;
 
 int main() {
-    Matrix a(2,3);
+    BoltzmannDistribution bd0(1);
     
+    //  These tests should print out a bunch of 1's
     
+    //  Unit Test Space
+        cout << "Unit test: ";
+        Unit* a = new Unit(true);
+        Unit* b = new Unit(false);
+        cout << (a->pingState() == true);
+        cout << (b->pingState() == false);
+        a->ping(100000, bd0);
+        cout << (a->pingState() == true);
+        delete a;
+        delete b;
+
+    //  Layer Test Space
+        cout << endl << "Layer test: ";
+        Layer* c = new Layer(10);
+        Layer* d = new Layer(*c);
+        cout << !(c == d);
+        cout << (c->getStates().size() == 10);
+        cout << (d->getStates().size() == 10);
+        c->clampStateOfUnit(0, !c->getStates()[0]);
+        cout << !(c->getStates()[0] == d->getStates()[0]);
+        c->clampStateOfUnits(d->getStates());
+        cout << (c->getStates()[0] == d->getStates()[0]);
+        cout << (c->ping(0, 1000, bd0) == true);
+        delete c;
+        delete d;
+    
+    //  Matrix Test Space
+        cout << endl << "Matrix test: ";
+        Matrix* e = new Matrix(2,3);
+        vector <int> i = {1,0,0};
+        vector <int> j = {0,1};
+        Matrix* f = new Matrix(j, i, .5);
+        Matrix* g = new Matrix(2,3);
+        cout << (f->getWeight(1,0) == .5);
+        f->adjustWeight(1, 0, 0.0);
+        cout << (f->getWeight(1,0) == 0.0);
+        double aaaa = g->getWeight(0, 0);
+        *g -= *e;
+        *g += *e;
+        cout << (aaaa == g->getWeight(0, 0));
+        *g = *g - *e;
+        *g = *g + *e;
+        cout << (aaaa == g->getWeight(0, 0));
+        *g *= 5;
+        cout << (aaaa*5 == g->getWeight(0, 0));
+        delete e;
+        delete f;
+        delete g;
+        for (int i = 0; i < 1000000; ++i) {
+            Matrix* testMat = new Matrix(1,0);
+            delete testMat;
+        }
+    
+    //  Machine Test Space
+        Machine* h = new Machine(4,20);
+        delete h;
+
+    //  Network Test Space
+        Network* n = new Network(10);
+        delete n;
 //    std::vector<double> tests;
 //    std::vector<double> testTimes;
 //    timer t;
@@ -44,7 +105,7 @@ int main() {
 //    for (int i = 0; i < testTimes.size(); ++i) {
 //        std::cout << testTimes[i] << "\n";
 //    }
-    std::cout << "Ha!\n";
+    std::cout << endl << "Ha!\n";
     //  Structure:
     //      Unit:       These units include Hidden and Visible units
     //      Layer:      Layers contain units

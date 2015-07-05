@@ -327,11 +327,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/DeveloperTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/usr/local/include/**",
+					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "/usr/local/include/X11/** /usr/local/lib/**";
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/X11 /usr/local/lib";
 			};
 			name = Debug;
 		};
@@ -341,11 +341,11 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/DeveloperTools/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/usr/local/include/**",
+					/usr/local/include,
 				);
-				LIBRARY_SEARCH_PATHS = "/usr/local/lib/**";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "/usr/local/include/X11/** /usr/local/lib/**";
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/X11 /usr/local/lib";
 			};
 			name = Release;
 		};

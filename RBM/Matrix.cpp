@@ -44,12 +44,7 @@
         if (this != &rhs) {
             sizeOfLowerLayer = rhs.sizeOfLowerLayer;
             sizeOfHigherLayer = rhs.sizeOfHigherLayer;
-            for (int i = 0; i < sizeOfLowerLayer; ++i) {
-                weights.push_back(std::vector<double>());
-                for (int j = 0; j < sizeOfHigherLayer; ++j) {
-                    weights[i].push_back(weights[i][j]);
-                }
-            }
+            weights = rhs.weights;
         }
     }
 
@@ -110,7 +105,8 @@
 
 Boltzmann::Matrix& Boltzmann::Matrix::operator=(const Boltzmann::Matrix& rhs) {
     if (this == &rhs) return *this;
-    delete this;
-    *this = Boltzmann::Matrix(rhs);
+    sizeOfLowerLayer = rhs.sizeOfLowerLayer;
+    sizeOfHigherLayer = rhs.sizeOfHigherLayer;
+    weights = rhs.weights;
     return *this;
 }
