@@ -79,8 +79,8 @@
 //          2.a.    If the differential is higher than zero, clamp to true.
 //          2.b.    If the differential is lower than or equal to zero, clamp to false.
 //
-//  This method is used to very quickly/cheaply generate a hidden layer relying only on the state of the visibles and the weights.
-//      This is a purely linear transformation, and involves no boltzmann distributions or stochastic generation.
+//  This method is used to very quickly/cheaply generate a hidden layer relying only on the states of the visibles and their respective weights.
+//      This is a purely linear transformation, and involves neither Boltzmann Distributions nor Stochastic Generations.
 
     void Boltzmann::Machine::determinsticUpPass() {
         double diff = 0.0;
@@ -103,17 +103,16 @@
 //      3.  This matrix takes the outer product of the unit states and multiplies the result by a learning constant, learnRate.
 //      4.  The weights of the machine are then either incremented or decremented, depending on the state of the 'increment' switch.
 //
-//  This method is essential in the learning process.
+//  ***Essential component of the learning process.***
 //      Iff V1 and H2 are both on when this method is called, the weight V1-H2 will be incremented by learnRate if increment is true
 //      Iff V1 and H2 are both on when this method is called, the weight V1-H2 will be decremented by learnRate if increment is false
 //
 //  This method is called extensively in the Boltzmann::Machine::iterateLearning method.
 
     void Boltzmann::Machine::adjustWeights(bool increment, double learnRate) {
-        Matrix gates(visibleLayer->getStates(), hiddenLayer->getStates(), learnRate);
-        if (increment) {
+        Matrix gates(visibleLayer->getStates(), hiddenLayer->getStates(), learnRate);   // Calculates inner product v^t*h
+        if (increment)
             weights += gates;
-        }
         else
             weights -= gates;
     }
@@ -135,16 +134,19 @@
 //      3.  Generates a final hidden layer configuration (deterministically) from this visible layer fantasy and punishes the weights
 //              corresponding to this config.
 
-    void Boltzmann::Machine::iterateLearning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges) {
+    void Boltzmann::Machine::backPropagationTuning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges, double decayRate, unsigned decayStep) {
+        double decay = 1.0; unsigned counter = 0;
         std::vector<int> origInputs = visibleLayer->getStates();
-        for (int i = 0; i < numberOfExchanges; ++i) {
-            std::cout << "Learning: " << i << std::endl;
+        for (int i = 0; i < numberOfExchanges; ++i, ++counter) {
+            if (counter >= decayStep)
+                decay *= decay;
+            std::cout << "Learning: " << i << std::endl;        // Debug
             origInputs = visibleLayer->getStates();
-            stochasticUpPass(bd);
-            adjustWeights(true, learnRate);
-            stochasticDownPass(bd);
-            determinsticUpPass();
-            adjustWeights(false, learnRate);
+            stochasticUpPass(bd);                               //  1.
+            adjustWeights(true, learnRate*decay);               //  2.
+            stochasticDownPass(bd);                             //  3.
+            determinsticUpPass();                               //  4.
+            adjustWeights(false, learnRate*decay);              //  5.
             visibleLayer->clampStateOfUnits(origInputs);
         }
     }

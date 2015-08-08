@@ -103,10 +103,10 @@
 //      Steals the other matrix's members.
 //      Returns this.
 
-Boltzmann::Matrix& Boltzmann::Matrix::operator=(const Boltzmann::Matrix& rhs) {
-    if (this == &rhs) return *this;
-    sizeOfLowerLayer = rhs.sizeOfLowerLayer;
-    sizeOfHigherLayer = rhs.sizeOfHigherLayer;
-    weights = rhs.weights;
-    return *this;
-}
+    Boltzmann::Matrix& Boltzmann::Matrix::operator=(const Boltzmann::Matrix& rhs) {
+        if (this == &rhs) return *this;
+        sizeOfLowerLayer = rhs.sizeOfLowerLayer;
+        sizeOfHigherLayer = rhs.sizeOfHigherLayer;
+        weights = rhs.weights;
+        return *this;
+    }

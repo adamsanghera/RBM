@@ -5,6 +5,12 @@
 //  Created by Adam Sanghera on 6/17/15.
 //  Copyright (c) 2015 adamSanghera. All rights reserved.
 //
+//  Class Layer:
+//      - The "Layer" is the second-lowest level element of the Boltzmann Machine.
+//      - Layers are composed of several inter-_in_dependent units.
+//      - Layers are woven together via the connections between their respective units.
+//          + These connections are described and stored in the Matrix member variable of a Layer-pair's Machine parent.
+
 
 #ifndef __RBM__Layer__
 #define __RBM__Layer__
