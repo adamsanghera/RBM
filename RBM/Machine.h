@@ -33,11 +33,13 @@ namespace Boltzmann {
             void stochasticUpPass(BoltzmannDistribution& bd);
             void stochasticDownPass(BoltzmannDistribution& bd);
             void determinsticUpPass();
-            void backPropagationTuning(double learnRate, BoltzmannDistribution& bd, size_t numberOfExchanges = 100, double decayRate=.1, unsigned decayStep = 20);
+            void backPropagationTuning(double learnRate, BoltzmannDistribution& bd, size_t numberOfExchanges = 100, bool softMax = false, double decayRate=.1, unsigned decayStep = 20);
             void replaceVisibleLayer(std::vector<bool> inputs);
         
         /*  Begin Experimental Section */
-            void softMaxClamp(size_t numberOfUnitsToClamp);
+            void softMaxDeterministicUpPass();
+            void displayMachineState();
+            void emplaceRandomVisibleLayer();
         /*  End Experimental Section */
         
         //  Machine Destructor

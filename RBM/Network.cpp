@@ -44,9 +44,15 @@
 //  *   This method follows the idea of training each Machine in a cascade, iteratively.
 //      -   e.g. Machine 1 is trained, and its output hidden layer is used as Machine 2's visible layer; from which 2 is trained.
 
-    void Boltzmann::Network::iterateLearnCycle(double learningRate, size_t numberOfIts) {
-        for (int i = 0; i < listOfMachines.size(); ++i)
-            listOfMachines[i]->iterateLearning(learningRate, dist, numberOfIts);
+    void Boltzmann::Network::iterateLearnCycle(double learningRate, size_t numberOfIts, bool softMaxTop) {
+        if (softMaxTop) {
+            for (int i = 0; i < listOfMachines.size()-1; ++i)
+                listOfMachines[i]->backPropagationTuning(learningRate, dist, numberOfIts);
+            listOfMachines[listOfMachines.size()-1]->backPropagationTuning(learningRate, dist, numberOfIts, softMaxTop);
+        }
+        else
+            for (int i = 0; i < listOfMachines.size(); ++i)
+                listOfMachines[i]->backPropagationTuning(learningRate, dist, numberOfIts);
     }
 
 //  Boltzmann::Network Destructor

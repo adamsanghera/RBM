@@ -25,7 +25,7 @@ namespace Boltzmann {
             void updateBoltDist (BoltzmannDistribution bdNew) { dist = bdNew; }
             void pushLayer (size_t sizeOfNewLayer);
             void swapOutInput (std::vector<bool> inputs);
-            void iterateLearnCycle (double learningRate, size_t numberOfIts);
+            void iterateLearnCycle (double learningRate, size_t numberOfIts, bool softMaxTop = false);
             void swapWithRandomInput();
             void generateInput();
 

@@ -122,7 +122,7 @@
 //  While this method *does* modify the pre-learning input vector, the machine preserves this vector and restores it at the culmination of
 //      each learning cycle.
 //  This method calls the following methods a number of times equal to numberOfExchanges:
-//      1.  stochasticUpPass
+//      1.  stochasticUpPass / softMaxDeterministicUpPass
 //      2.  adjustWeights (increment)
 //      3.  stochasticDownPass
 //      4.  deterministicUpPass
@@ -134,19 +134,38 @@
 //      3.  Generates a final hidden layer configuration (deterministically) from this visible layer fantasy and punishes the weights
 //              corresponding to this config.
 
-    void Boltzmann::Machine::backPropagationTuning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges, double decayRate, unsigned decayStep) {
+    void Boltzmann::Machine::backPropagationTuning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges, bool softMax, double decayRate, unsigned decayStep) {
         double decay = 1.0; unsigned counter = 0;
         std::vector<int> origInputs = visibleLayer->getStates();
         for (int i = 0; i < numberOfExchanges; ++i, ++counter) {
             if (counter >= decayStep)
                 decay *= decay;
-            std::cout << "Learning: " << i << std::endl;        // Debug
+//            std::cout << "Learning: " << i << std::endl;        // Debug
             origInputs = visibleLayer->getStates();
-            stochasticUpPass(bd);                               //  1.
+            std::cout << "Init:\n";
+        displayMachineState();
+            
+            if (softMax)
+                softMaxDeterministicUpPass();                   //  1.
+            else
+                stochasticUpPass(bd);                           //  1.
             adjustWeights(true, learnRate*decay);               //  2.
+
+            std::cout << "Hiddens mapped, connections incremented:\n";
+        displayMachineState();
+            
             stochasticDownPass(bd);                             //  3.
-            determinsticUpPass();                               //  4.
+            std::cout << "Visibles generated, connections unchanged\n";
+            
+            if (softMax)
+                softMaxDeterministicUpPass();
+            else
+                determinsticUpPass();                           //  4.
             adjustWeights(false, learnRate*decay);              //  5.
+            
+            std::cout << "Hiddens mapped from fantasy visibles, connections decremented:\n";
+        displayMachineState();
+            
             visibleLayer->clampStateOfUnits(origInputs);
         }
     }
@@ -174,19 +193,79 @@
         }
     }
 
-
-
-
-
-
 /* Begin Experimental Section */
 
-void Boltzmann::Machine::softMaxClamp(size_t numberOfUnitsToClamp) {
-    // What the hell do we have to do here...
-    // Well, we have to have weights going from the Hidden Layer to the softMax layer.
-    // We have to iterate through the weights
-    double max;
 
-}
+//  softMax
+//  1.  Do a deterministic up pass, such that the following conditions are satisfied:
+//      a.  One and *only* one top-layer node has been activated.
+//      b.  This single, activated top-layer-node is the node which has been "most" activated by the input*weights vector.
+//  2.  Increment the weights between the lower-level activated nodes and this softmaxed node.
+//  3.  Generate a visible layer given the softmaxed-activated node.
+//  4.  Do another deterministic up pass, (repeat step 1).
+//  5.  Decrement the weights between the lower-level activated nodes and the newly-activated softmaxed node.
 
+    void Boltzmann::Machine::softMaxDeterministicUpPass() {
+        double diff = 0.0;
+        std::pair<double, unsigned> biggest = std::make_pair(-15.0, 0);
+        std::vector<int> origInputs = visibleLayer->getStates();
+        for (int i = 0; i < hiddenSize; ++i) {
+            for (int j = 0; j < weights.sizeOfLowerLayer; ++j)
+                diff += weights.getWeight(j, i) * origInputs[j];
+            if (diff > biggest.first) {
+                biggest.first = diff;
+                biggest.second = i;
+            }
+            hiddenLayer->clampStateOfUnit(i, false);
+            diff = 0.0;
+        }
+        hiddenLayer->clampStateOfUnit(biggest.second, true);
+    }
+
+    void Boltzmann::Machine::displayMachineState() {
+        std::cout << "\t";
+        for (int i = 0; i < hiddenSize; ++i) {
+            std::cout << "h" << i%10;
+            if (hiddenLayer->listOfUnits[i]->pingState())
+                std::cout << "T\t";
+            else
+                std::cout << "F\t";
+        }
+        std::cout << std::endl;
+        for (int j = 0; j < visSize; ++j) {
+            std::cout << "v" << j%10;
+            if (visibleLayer->listOfUnits[j]->pingState())
+                std::cout << "T\t";
+            else
+                std::cout << "F\t";
+            for (int k = 0; k < hiddenSize; ++k) {
+                double z = weights.getWeight(j, k);
+                if (z >= .35)
+                    std::cout << "+\t";
+                else if (z >= -.35)
+                    std::cout << "*\t";
+                else
+                    std::cout << "-\t";
+            }
+            std::cout << std::endl;
+        }
+        //Lower1 Higher1  Higher2  Higher3
+        //Lower2 Higher1  Higher2  Higher3
+        //Lower3 Higher1  Higher2  Higher3
+        //Lower4 Higher1  Higher2  Higher3
+    }
+
+    void Boltzmann::Machine::emplaceRandomVisibleLayer() {
+        std::vector<bool> inputs;
+        srand(time(nullptr));
+        for (int i = 0; i < visSize; ++i) {
+            double out = rand() % 1000;
+            double real = out / 1000;
+            if (real < .50)
+                inputs.push_back(true);
+                else
+                    inputs.push_back(false);
+                    }
+        replaceVisibleLayer(inputs);
+    }
 /* End Experimental Section */
