@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2D6C1B601B389BC4006BF902 /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C1B5E1B389BC4006BF902 /* Machine.cpp */; };
 		2D6C1B631B38B9E2006BF902 /* Unit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D6C1B611B38B9E2006BF902 /* Unit.cpp */; };
+		2D90C5A31BD0120100DFB132 /* readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 2D90C5A21BD0120100DFB132 /* readme.md */; };
 		2DC30D881B32125500F40701 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D871B32125500F40701 /* main.cpp */; };
 		2DC30D931B32179400F40701 /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D911B32179400F40701 /* Layer.cpp */; };
 		2DC30D961B3217A300F40701 /* Network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DC30D941B3217A300F40701 /* Network.cpp */; };
@@ -44,6 +45,7 @@
 		2D6C1B6E1B3B341B006BF902 /* 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpg; sourceTree = "<group>"; };
 		2D6C1B6F1B3B341B006BF902 /* 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8.jpg; sourceTree = "<group>"; };
 		2D6C1B701B3B341B006BF902 /* 9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 9.jpg; sourceTree = "<group>"; };
+		2D90C5A21BD0120100DFB132 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		2DC30D841B32125500F40701 /* RBM */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RBM; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DC30D871B32125500F40701 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2DC30D911B32179400F40701 /* Layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layer.cpp; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		2D6C1B591B387B22006BF902 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2D90C5A21BD0120100DFB132 /* readme.md */,
 				2D6C1B651B3B341B006BF902 /* Digits */,
 				2DC30D9E1B32295F00F40701 /* BoltzmannDistribution.cpp */,
 				2DC30D9F1B32295F00F40701 /* BoltzmannDistribution.h */,
@@ -94,10 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				2D6C1B621B38B9E2006BF902 /* Unit.h */,
-				2D6C1B5F1B389BC4006BF902 /* Machine.h */,
 				2DC30DA21B333D5F00F40701 /* Matrix.h */,
-				2DC30D951B3217A300F40701 /* Network.h */,
 				2DC30D921B32179400F40701 /* Layer.h */,
+				2D6C1B5F1B389BC4006BF902 /* Machine.h */,
+				2DC30D951B3217A300F40701 /* Network.h */,
 			);
 			name = "Header Files";
 			sourceTree = "<group>";
@@ -106,10 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				2D6C1B611B38B9E2006BF902 /* Unit.cpp */,
-				2D6C1B5E1B389BC4006BF902 /* Machine.cpp */,
 				2DC30DA11B333D5F00F40701 /* Matrix.cpp */,
-				2DC30D941B3217A300F40701 /* Network.cpp */,
 				2DC30D911B32179400F40701 /* Layer.cpp */,
+				2D6C1B5E1B389BC4006BF902 /* Machine.cpp */,
+				2DC30D941B3217A300F40701 /* Network.cpp */,
 			);
 			name = "Implementation Files";
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D6C1B631B38B9E2006BF902 /* Unit.cpp in Sources */,
+				2D90C5A31BD0120100DFB132 /* readme.md in Sources */,
 				2DC30DA31B333D5F00F40701 /* Matrix.cpp in Sources */,
 				2DC30DA01B32295F00F40701 /* BoltzmannDistribution.cpp in Sources */,
 				2DFE15611B3B670B0004D5A2 /* SimilarityTester.cpp in Sources */,

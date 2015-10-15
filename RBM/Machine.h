@@ -11,6 +11,7 @@
 //      - The Machine manages the interactions between it's two associated Layers.
 //      - Layers may coexist across several different Machines (Machines store Layer pointers, not Layers).
 //          + For example, the top Layer of one Machine could be the bottom Layer of another Machine.
+//          + Accordingly, a single machine can feed or fork into multiple other machines.
 //      - The weights of the connections between Units of a Machine's respective layers are stored in the Machine class.
 
 
