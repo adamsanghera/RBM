@@ -18,10 +18,10 @@
 #define __RBM__Unit__
 
 #include <stdio.h>
+#include <time.h>
+#include <random>
+#include <iostream>
 #include "BoltzmannDistribution.h"
-#include "time.h"
-#include "random"
-#include "iostream"
 
 
 namespace Boltzmann {
