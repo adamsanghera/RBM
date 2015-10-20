@@ -34,6 +34,27 @@
         hiddenSize(hid->numUnits)
         {}
 
+void Boltzmann::Machine::forward(Boltzmann::BoltzmannDistribution& bd, bool constant) {
+    if (machineType == 0) {
+        if (constant)
+            determinsticUpPass();
+        else
+            stochasticDownPass(bd);
+    }
+    else {
+        softMaxDeterministicUpPass();
+    }
+}
+
+void Boltzmann::Machine::back(Boltzmann::BoltzmannDistribution& bd, bool constant) {
+    if (machineType == 0) {
+        // pass back one way
+    }
+    else {
+        // pass back another way
+    }
+}
+
 //  Boltzmann::Machine::stochasticUpPass
 //      Uses a BoltzmannDistribution (essentially a t-value) to perform a stochastic-up-pass through the machine.
 //  Follows the following pseudo-code process:
@@ -134,7 +155,7 @@
 //      3.  Generates a final hidden layer configuration (deterministically) from this visible layer fantasy and punishes the weights
 //              corresponding to this config.
 
-    void Boltzmann::Machine::backPropagationTuning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges, bool softMax, double decayRate, unsigned decayStep) {
+    void Boltzmann::Machine::backPropagationTuning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges, double decayRate, unsigned decayStep) {
         double decay = 1.0; unsigned counter = 0;
         std::vector<int> origInputs = visibleLayer->getStates();
         for (int i = 0; i < numberOfExchanges; ++i, ++counter) {
@@ -143,28 +164,22 @@
 //            std::cout << "Learning: " << i << std::endl;        // Debug
             origInputs = visibleLayer->getStates();
             std::cout << "Init:\n";
-        displayMachineState();
+            displayMachineState();
             
-            if (softMax)
-                softMaxDeterministicUpPass();                   //  1.
-            else
-                stochasticUpPass(bd);                           //  1.
+            stochasticUpPass(bd);                               //  1.
             adjustWeights(true, learnRate*decay);               //  2.
 
             std::cout << "Hiddens mapped, connections incremented:\n";
-        displayMachineState();
+            displayMachineState();
             
             stochasticDownPass(bd);                             //  3.
             std::cout << "Visibles generated, connections unchanged\n";
             
-            if (softMax)
-                softMaxDeterministicUpPass();
-            else
-                determinsticUpPass();                           //  4.
+            determinsticUpPass();                               //  4.
             adjustWeights(false, learnRate*decay);              //  5.
             
             std::cout << "Hiddens mapped from fantasy visibles, connections decremented:\n";
-        displayMachineState();
+            displayMachineState();
             
             visibleLayer->clampStateOfUnits(origInputs);
         }
@@ -195,7 +210,6 @@
 
 /* Begin Experimental Section */
 
-
 //  softMax
 //  1.  Do a deterministic up pass, such that the following conditions are satisfied:
 //      a.  One and *only* one top-layer node has been activated.
@@ -205,22 +219,23 @@
 //  4.  Do another deterministic up pass, (repeat step 1).
 //  5.  Decrement the weights between the lower-level activated nodes and the newly-activated softmaxed node.
 
-    void Boltzmann::Machine::softMaxDeterministicUpPass() {
-        double diff = 0.0;
-        std::pair<double, unsigned> biggest = std::make_pair(-15.0, 0);
-        std::vector<int> origInputs = visibleLayer->getStates();
-        for (int i = 0; i < hiddenSize; ++i) {
-            for (int j = 0; j < weights.sizeOfLowerLayer; ++j)
-                diff += weights.getWeight(j, i) * origInputs[j];
-            if (diff > biggest.first) {
-                biggest.first = diff;
-                biggest.second = i;
-            }
-            hiddenLayer->clampStateOfUnit(i, false);
-            diff = 0.0;
+void Boltzmann::Machine::softMaxDeterministicUpPass() {
+    double diff = 0.0;
+    std::pair<double, unsigned> biggest = std::make_pair(-15.0, 0);
+    std::vector<int> origInputs = visibleLayer->getStates();
+    for (int i = 0; i < hiddenSize; ++i) {
+        for (int j = 0; j < weights.sizeOfLowerLayer; ++j)
+            diff += weights.getWeight(j, i) * origInputs[j];
+        if (diff > biggest.first) {
+            biggest.first = diff;
+            biggest.second = i;
         }
-        hiddenLayer->clampStateOfUnit(biggest.second, true);
+        hiddenLayer->clampStateOfUnit(i, false);
+        diff = 0.0;
     }
+    hiddenLayer->clampStateOfUnit(biggest.second, true);
+}
+
 
     void Boltzmann::Machine::displayMachineState() {
         std::cout << "\t";

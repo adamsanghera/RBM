@@ -26,15 +26,23 @@ namespace Boltzmann {
     class Machine {
         friend class Network;
     public:
-        //  Constructors
+        /*  Constructors    */
             Machine(size_t sizeOfBase, size_t sizeOfTop);
             Machine(Layer* const vis, Layer* const hid);
+        
+            Machine(Layer* const vis, Layer* const hid, size_t machineType);    // Links two layers in a specific manner
 
-        //  Misc. Essential Methods
-            void stochasticUpPass(BoltzmannDistribution& bd);
-            void stochasticDownPass(BoltzmannDistribution& bd);
-            void determinsticUpPass();
-            void backPropagationTuning(double learnRate, BoltzmannDistribution& bd, size_t numberOfExchanges = 100, bool softMax = false, double decayRate=.1, unsigned decayStep = 20);
+        /*  Misc. Essential Methods */
+            void forward(BoltzmannDistribution& bd, bool constant);            // Experimental: generalized forward pass
+            void back(BoltzmannDistribution& bd, bool constant);               // Experimental: generalized backward pass
+            void stochasticUpPass(BoltzmannDistribution& bd);   // This might become a private method
+            void stochasticDownPass(BoltzmannDistribution& bd); // This, too, might become a private method
+            void determinsticUpPass();                          // This, finally, might become a private method
+        
+            // This should stay public
+            void backPropagationTuning(double learnRate, BoltzmannDistribution& bd, size_t numberOfExchanges = 100, double decayRate=.1, unsigned decayStep = 20);
+        
+            // I'm unconvinced that this should be public.
             void replaceVisibleLayer(std::vector<bool> inputs);
         
         /*  Begin Experimental Section */
@@ -51,6 +59,8 @@ namespace Boltzmann {
         Layer* visibleLayer;
         Matrix weights;
         size_t hiddenSize, visSize;
+        
+        size_t machineType;             // 0 is stochastic (normal operation), 1 is softmax
     };
 }
 

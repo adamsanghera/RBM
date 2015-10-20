@@ -26,6 +26,5 @@ I.A.  Machine
         *   Essentially, this type will determine how forward passes, backward passes, and loss is calculated
     
     ->  All methods which would now be considered "type-specific" will be consolidated into singular methods whose functions vary with type, e.g. forwardPass(), backwardPass()
-
-
+    ->  We should consolidate stochasticUpPass and stochasticDownPass into a single method, taking a variable of bool 'up'
     
