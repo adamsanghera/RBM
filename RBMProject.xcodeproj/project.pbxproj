@@ -15,6 +15,7 @@
 		2DB6616E1BD5E21D00006021 /* SimilarityTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DB661671BD5E21D00006021 /* SimilarityTester.cpp */; settings = {ASSET_TAGS = (); }; };
 		2DB6616F1BD5E21D00006021 /* Unit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DB661681BD5E21D00006021 /* Unit.cpp */; settings = {ASSET_TAGS = (); }; };
 		2DB661781BD5E23700006021 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DB661771BD5E23700006021 /* main.cpp */; settings = {ASSET_TAGS = (); }; };
+		2DB6617A1BD5E28200006021 /* readme.md in Sources */ = {isa = PBXBuildFile; fileRef = 2DB661791BD5E28200006021 /* readme.md */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +47,7 @@
 		2DB661751BD5E22C00006021 /* SimilarityTester.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SimilarityTester.h; path = Source/SimilarityTester.h; sourceTree = "<group>"; };
 		2DB661761BD5E22C00006021 /* Unit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Unit.h; path = Source/Unit.h; sourceTree = "<group>"; };
 		2DB661771BD5E23700006021 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/main.cpp; sourceTree = "<group>"; };
+		2DB661791BD5E28200006021 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				2DB661771BD5E23700006021 /* main.cpp */,
+				2DB661791BD5E28200006021 /* readme.md */,
 				2DB661611BD5DF9700006021 /* Implementation */,
 				2DB661601BD5DF8C00006021 /* Headers */,
 			);
@@ -170,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DB6616C1BD5E21D00006021 /* Matrix.cpp in Sources */,
+				2DB6617A1BD5E28200006021 /* readme.md in Sources */,
 				2DB6616E1BD5E21D00006021 /* SimilarityTester.cpp in Sources */,
 				2DB6616B1BD5E21D00006021 /* Machine.cpp in Sources */,
 				2DB661691BD5E21D00006021 /* BoltzmannDistribution.cpp in Sources */,
