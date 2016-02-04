@@ -8,6 +8,8 @@
 
 #include "Network.h"
 
+using namespace arma;
+
 //  Boltzmann::Network Constructor
 //  -   Constructs a Netowrk composed of a single Boltzmann::Machine of dimensions (soBL, soHL).
 //  In the future, perhaps we should have a Network constructor that starts without any machines?
@@ -32,13 +34,6 @@
         numMachines++;
     }
 
-//  Boltzmann::Network::swapOutInput
-//  -   Replaces the current input vector (lowermost layer) with a new input vector.
-
-    void Boltzmann::Network::swapOutInput(std::vector<bool> inputs) {
-        listOfMachines[0]->replaceVisibleLayer(inputs);
-    }
-
 //  Boltzmann::Network::iterateLearnCycle
 //  -   Goes through the entire list of Machines, calling the method Boltzmann::iterateLearnCycle on each.
 //  *   This method follows the idea of training each Machine in a cascade, iteratively.
@@ -55,18 +50,11 @@
                 listOfMachines[i]->backPropagationTuning(learningRate, dist, numberOfIts);
     }
 
-//  Boltzmann::Network Destructor
-//  -   Iterates through the Machines, deleting visible and hidden layers in a weave that avoids malloc bugs.
+//  Boltzmann::Network::swapOutInput
+//  -   Replaces the current input vector (lowermost layer) with a new input vector.
 
-    Boltzmann::Network::~Network() {
-        for (int i = 0; i < listOfMachines.size(); ++i) {
-            delete listOfMachines[i]->visibleLayer;
-            listOfMachines[i]->visibleLayer = nullptr;
-            if (i == listOfMachines.size()-1)   delete listOfMachines[i]->hiddenLayer;
-            listOfMachines[i]->hiddenLayer = nullptr;
-        }
-        for (int j = 0; j < listOfMachines.size(); ++j)
-            delete listOfMachines[j];
+    void Boltzmann::Network::swapOutInput(vec inputs) {       // We need to pass in a vec, not a vector
+        listOfMachines[0]->replaceVisibleLayer(inputs);
     }
 
 //  Boltzmann::Network::swapWithRandomInput
@@ -74,17 +62,16 @@
 //  *   Uses a similar uniform distribution model as that model which is implemented in Boltzmann::Unit::ping
 
     void Boltzmann::Network::swapWithRandomInput() {
-        std::vector<bool> inputs;
-        srand(time(nullptr));
-        for (int i = 0; i < sizeOfBaseLayer; ++i) {
-            double out = rand() % 1000;
-            double real = out / 1000;
-            if (real < .50)
-                inputs.push_back(true);
+        // Create the input vector
+        arma_rng::set_seed_random();
+        vec newInputLayer(sizeOfBaseLayer, fill::randu);
+        for (int i = 0; i < newInputLayer.size(); ++i) {
+            float j = newInputLayer(i);
+            if (j < .5)
+                newInputLayer(i) = 0;
             else
-                inputs.push_back(false);
+                newInputLayer(i) = 1;
         }
-        swapOutInput(inputs);
     }
 
 //  Boltzmann::Network::generateInput
@@ -124,4 +111,18 @@
             std::cout << listOfMachines[numMachines-1]->hiddenLayer->listOfUnits[k]->pingState();
         }
         std::cout << "\n";
+    }
+
+//  Boltzmann::Network Destructor
+//  -   Iterates through the Machines, deleting visible and hidden layers in a weave that avoids malloc bugs.
+
+    Boltzmann::Network::~Network() {
+        for (int i = 0; i < listOfMachines.size(); ++i) {
+            delete listOfMachines[i]->visibleLayer;
+            listOfMachines[i]->visibleLayer = nullptr;
+            if (i == listOfMachines.size()-1)   delete listOfMachines[i]->hiddenLayer;
+            listOfMachines[i]->hiddenLayer = nullptr;
+        }
+        for (int j = 0; j < listOfMachines.size(); ++j)
+            delete listOfMachines[j];
     }

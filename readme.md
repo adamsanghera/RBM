@@ -42,3 +42,41 @@ Implementation:
 
 +   I investigated Trilinos, and have their libraries installed.  However, their library is highly complex, and therefore beyond the scope of what's required.  Potentially, we can add support later.
 +   I'll try implementing Armadillo.
+
+
+These are the methods that need to be replaced:
+
+//  Constructors
+Matrix(size_t lowerLayerSize, size_t higherLayerSize);
+Matrix(std::vector<int> lower, std::vector<int> higher, double learningRate);
+Matrix(const Matrix& rhs);
+
+//  Misc. Methods
+void randomizeWeights();
+double getWeight(size_t lowerUnitIndex, size_t higherUnitIndex) const;
+void adjustWeight(size_t lowerUnitIndex, size_t higherUnitIndex, double newWeight);
+
+//  Arithmetic Operators
+Matrix& operator+=(const Matrix& rhs);
+Matrix& operator-=(const Matrix& rhs);
+Matrix& operator*=(const double rhs);
+Matrix operator+(const Matrix& rhs);
+Matrix operator-(const Matrix& rhs);
+Matrix operator*(const double rhs);
+
+//  Assignment Operator
+Matrix& operator=(const Matrix& rhs);
+
+Constructor Equivalents:
+    mat::fixed<lower, higher>;
+    kron(mat a, mat b) in conjunction with operator*(learningRate)
+    copy constructor
+
+Misc. Equivalencies:
+    randu<mat>(size, size)
+    mat.operator()(size_t, size_t)
+    same as aboce, just assign a value.
+
+Arithmetic Operators:
+    All handled.
+

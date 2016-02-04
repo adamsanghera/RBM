@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "Machine.h"
-#include "Matrix.h"
+#include <armadillo>
 #include <string>
 //#include "CIMG/CImg.h"
 
@@ -24,10 +24,10 @@ namespace Boltzmann {
         //  Misc. Essential Methods
             void updateBoltDist (BoltzmannDistribution bdNew) { dist = bdNew; }
             void pushLayer (size_t sizeOfNewLayer);
-            void swapOutInput (std::vector<bool> inputs);
             void iterateLearnCycle (double learningRate, size_t numberOfIts, bool softMaxTop = false);
-            void swapWithRandomInput();
-            void generateInput();
+            void swapWithRandomInput(); // This needs to be altered *   *   *   *   *   //
+            void generateInput();       // This, too, needs to be altered   *   *   *   //
+            void swapOutInput (arma::vec inputs);   // Same *   *   *   *   *   //
 
         //  Misc. Helpful Methods
             std::string extractVisibleLayerAsString();

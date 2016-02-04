@@ -20,7 +20,7 @@
 
 #include <stdio.h>
 #include "Layer.h"
-#include "Matrix.h"
+#include <armadillo>
 
 namespace Boltzmann {
     class Machine {
@@ -35,7 +35,7 @@ namespace Boltzmann {
             void stochasticDownPass(BoltzmannDistribution& bd);
             void determinsticUpPass();
             void backPropagationTuning(double learnRate, BoltzmannDistribution& bd, size_t numberOfExchanges = 100, bool softMax = false, double decayRate=.1, unsigned decayStep = 20);
-            void replaceVisibleLayer(std::vector<bool> inputs);
+            void replaceVisibleLayer(arma::vec inputs);
         
         /*  Begin Experimental Section */
             void softMaxDeterministicUpPass();
@@ -49,7 +49,7 @@ namespace Boltzmann {
         void adjustWeights(bool increment, double learnRate);
         Layer* hiddenLayer;
         Layer* visibleLayer;
-        Matrix weights;
+        arma::mat weights;
         size_t hiddenSize, visSize;
     };
 }

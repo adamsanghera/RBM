@@ -8,6 +8,8 @@
 
 #include "Machine.h"
 
+using namespace arma;
+
 //  Machine Constructor A
 //      Inputs: sizeOfBase, sizeOfTop
 //  Constructs a Machine with a visible layer of size sizeOfBase and a hidden layer of size sizeOfTop
@@ -174,9 +176,9 @@
 //      This method replaces the current visible player with a vector of bool inputs.
 //  Used to adjust the input vector
 
-    void Boltzmann::Machine::replaceVisibleLayer(std::vector<bool> inputs) {
+    void Boltzmann::Machine::replaceVisibleLayer(vec inputs) {
         for (int i = 0; i < inputs.size(); ++i)
-            visibleLayer->clampStateOfUnit(i, inputs[i]);
+            visibleLayer->clampStateOfUnit(i, (inputs[i] >= .5) ? (true) : (false));
     }
 
 //  Boltzmann::Machine Destructor
