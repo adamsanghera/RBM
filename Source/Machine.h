@@ -27,8 +27,8 @@ namespace Boltzmann {
         friend class Network;
     public:
         //  Constructors
-            Machine(size_t sizeOfBase, size_t sizeOfTop);
-            Machine(Layer* const vis, Layer* const hid);
+            Machine(size_t botSize, size_t topSize);
+            Machine(Layer* const low, Layer* const top);
 
         //  Misc. Essential Methods
             void stochasticUpPass(BoltzmannDistribution& bd);
@@ -47,10 +47,10 @@ namespace Boltzmann {
             ~Machine();
     private:
         void adjustWeights(bool increment, double learnRate);
-        Layer* hiddenLayer;
-        Layer* visibleLayer;
+        Layer* botLayer;
+        Layer* topLayer;
         arma::mat weights;
-        size_t hiddenSize, visSize;
+        size_t topSize, botSize;
     };
 }
 

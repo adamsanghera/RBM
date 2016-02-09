@@ -29,7 +29,7 @@ using namespace arma;
 //          and whose hidden layer is the new layer which is now being pushed into the network.
 
     void Boltzmann::Network::pushLayer(size_t sizeOfNewLayer) {
-        Layer* dummy = listOfMachines[listOfMachines.size()-1]->hiddenLayer;
+        Layer* dummy = listOfMachines[listOfMachines.size()-1]->topLayer;
         listOfMachines.push_back(new Machine(dummy, new Layer(sizeOfNewLayer)));
         numMachines++;
     }
@@ -91,7 +91,7 @@ using namespace arma;
     std::string Boltzmann::Network::extractVisibleLayerAsString() {
         std::string o("");
         for (int i = 0; i < sizeOfBaseLayer; ++i)
-            o.push_back(listOfMachines[0]->visibleLayer->listOfUnits[i]->pingState());
+            o.push_back(listOfMachines[0]->botLayer->listOfUnits[i]->pingState());
         return o;
     }
 
@@ -100,15 +100,15 @@ using namespace arma;
 
     void Boltzmann::Network::printNetwork() {
         for (int i = 0; i < numMachines; ++i) {
-            for (int j = 0; j < listOfMachines[i]->visibleLayer->numUnits; j++) {
+            for (int j = 0; j < listOfMachines[i]->botLayer->numUnits; j++) {
                 if (j % 50 == 0)    std::cout << "\n";
-                std::cout << listOfMachines[i]->visibleLayer->listOfUnits[j]->pingState();
+                std::cout << listOfMachines[i]->botLayer->listOfUnits[j]->pingState();
             }
             std::cout << "\n";
         }
-        for (int k = 0; k < listOfMachines[numMachines-1]->hiddenLayer->numUnits; ++k) {
+        for (int k = 0; k < listOfMachines[numMachines-1]->topLayer->numUnits; ++k) {
             if (k % 50 == 0)    std::cout << "\n";
-            std::cout << listOfMachines[numMachines-1]->hiddenLayer->listOfUnits[k]->pingState();
+            std::cout << listOfMachines[numMachines-1]->topLayer->listOfUnits[k]->pingState();
         }
         std::cout << "\n";
     }
@@ -118,10 +118,10 @@ using namespace arma;
 
     Boltzmann::Network::~Network() {
         for (int i = 0; i < listOfMachines.size(); ++i) {
-            delete listOfMachines[i]->visibleLayer;
-            listOfMachines[i]->visibleLayer = nullptr;
-            if (i == listOfMachines.size()-1)   delete listOfMachines[i]->hiddenLayer;
-            listOfMachines[i]->hiddenLayer = nullptr;
+            delete listOfMachines[i]->botLayer;
+            listOfMachines[i]->botLayer = nullptr;
+            if (i == listOfMachines.size()-1)   delete listOfMachines[i]->topLayer;
+            listOfMachines[i]->topLayer = nullptr;
         }
         for (int j = 0; j < listOfMachines.size(); ++j)
             delete listOfMachines[j];

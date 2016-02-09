@@ -80,3 +80,40 @@ Misc. Equivalencies:
 Arithmetic Operators:
     All handled.
 
+I really to standardize upper layer vs lower layer.  I'm using variations of upper/lower and hidden/visible.
+    Which one should we go with?
+Qualities of upper/lower 
+    +   Less specific to RBM's.
+    +   More visual/intuitive, less hand-wavey
+Qualities of hidden/visible
+    +   Follows the proper nomenclature of Hinton's papers.
+    -   Less intuitive to users unfamiliar with Hinton's papers...
+    -   Further, abstracted to network scale, using hidden layer is inaccurate.
+
+
+Based on this list of pros and cons, I'm going to go with upper/lower.
+
+
+I'm unsure about using bool's as the lowest-level state unit within the layer class.
+    It is undoubtedly more memory-efficient than using an int, but the conversion overhead is a pain.
+    Maybe I should look up how to statically-allocate bit-size???? I'm sure it's possible
+--> In the meantime, switch to integers
+
+So I managed to get the library to build, having made all the adequate changes, but I'm scared.  I want to step through and make sure that everything is reasonable before I delete the matrix class
+Particular Concerns:
+    --> In the Matrix class, I know how the inner product was calculated, and the size of the resulting matrix.
+        ++ I want to make sure that kron creates the result I'm anticipating i.e. not the transpose matrix or smth weird like that
+
+Things I want to implement:
+Snapshots: 
+    load network from a file.
+    Save network to a file.
+Templates:
+    Save network structure to a file.
+    Load network structures from a file.
+
+How do we want the file to be structured?
+    --> a series of layers.
+
+
+

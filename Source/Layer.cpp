@@ -8,6 +8,8 @@
 
 #include "Layer.h"
 
+using namespace arma;
+
 //  Boltzmann::Layer Constructors
 //  1.  General Constructor
 //      -   Takes a size_t numberOfUnits and constructs a layer of deactivated units and numberOfUnits size.
@@ -44,10 +46,10 @@
 //  Boltzmann::Layer::getStates
 //  -   Returns a vector of integers to represent the states of units contained within this layer.
 
-    std::vector<int> Boltzmann::Layer::getStates() const {
-        std::vector<int> p;
+    mat Boltzmann::Layer::getStates() const {
+        mat p = mat(1, listOfUnits.size());
         for (int i = 0; i < listOfUnits.size(); ++i)
-            p.push_back(listOfUnits[i]->pingState());
+            p(i) = (listOfUnits[i]->pingState());
         return p;
     }
 
@@ -55,7 +57,7 @@
 //  -   Clamps the state of all units in this layer to match the states contained within the input vector of integers, 'states'.
 //  ~   If the integers within states are not 0 or 1, they will be forced into an appropriate binary value.  i.e. 193 -> 1.
 
-    void Boltzmann::Layer::clampStateOfUnits(std::vector<int> states) {
+    void Boltzmann::Layer::clampStateOfUnits(mat states) {
         for (int i = 0; i < states.size(); ++i)
             clampStateOfUnit(i, states[i]);
     }

@@ -15,12 +15,12 @@ using namespace arma;
 //  Constructs a Machine with a visible layer of size sizeOfBase and a hidden layer of size sizeOfTop
 //      Constructs a Matrix to manage the weights between these two layers, again using the sizeOf arguments.
 
-    Boltzmann::Machine::Machine(size_t sizeOfBase, size_t sizeOfTop)
-    :   visibleLayer(new Layer(sizeOfBase)),
-        hiddenLayer(new Layer(sizeOfTop)),
-        weights(sizeOfBase, sizeOfTop),
-        visSize(sizeOfBase),
-        hiddenSize(sizeOfTop) {}
+    Boltzmann::Machine::Machine(size_t botSize, size_t topSize)
+    :   botLayer(new Layer(botSize)),
+        topLayer(new Layer(topSize)),
+        weights(botSize, topSize),
+        botSize(botSize),
+        topSize(topSize) {}
 
 //  Machine Constructor B
 //  Uses pointers to two Layers to construct a Machine
@@ -29,11 +29,11 @@ using namespace arma;
 //  Generates a new weihts matrix in the same way as Constructor A
 
     Boltzmann::Machine::Machine(Boltzmann::Layer* const vis, Boltzmann::Layer* const hid)
-    :   visibleLayer(vis),
-        hiddenLayer(hid),
+    :   botLayer(vis),
+        topLayer(hid),
         weights(vis->numUnits, hid->numUnits),
-        visSize(vis->numUnits),
-        hiddenSize(hid->numUnits)
+        botSize(vis->numUnits),
+        topSize(hid->numUnits)
         {}
 
 //  Boltzmann::Machine::stochasticUpPass
@@ -46,11 +46,11 @@ using namespace arma;
 
     void Boltzmann::Machine::stochasticUpPass(Boltzmann::BoltzmannDistribution& bd) {
         double diff = 0.0;
-        std::vector<int> origInputs = visibleLayer->getStates();
-        for (int i = 0; i < hiddenSize; ++i) {
-            for (int j = 0; j < weights.sizeOfLowerLayer; ++j)
-                diff += weights.getWeight(j, i) * origInputs[j];
-            hiddenLayer->ping(i, diff, bd);
+        mat origInputs = botLayer->getStates();
+        for (int i = 0; i < topSize; ++i) {
+            for (int j = 0; j < botSize; ++j)
+                diff += weights(j, i) * origInputs(j);
+            topLayer->ping(i, diff, bd);
             diff = 0.0;
         }
     }
@@ -65,10 +65,10 @@ using namespace arma;
 
     void Boltzmann::Machine::stochasticDownPass(Boltzmann::BoltzmannDistribution& bd) {
         double diff = 0.0;
-        for (int i = 0; i < visSize; ++i) {
-            for (int j = 0; j < weights.sizeOfHigherLayer; ++j)
-                diff += weights.getWeight(i, j) * hiddenLayer->listOfUnits[j]->pingState();
-            visibleLayer->ping(i, diff, bd);
+        for (int i = 0; i < botSize; ++i) {
+            for (int j = 0; j < topSize; ++j)
+                diff += weights(i, j) * topLayer->pingState(j);
+            botLayer->ping(i, diff, bd);
             diff = 0.0;
         }
     }
@@ -86,13 +86,13 @@ using namespace arma;
 
     void Boltzmann::Machine::determinsticUpPass() {
         double diff = 0.0;
-        for (int i = 0; i < hiddenSize; ++i) {
-            for (int j = 0; j < weights.sizeOfLowerLayer; ++j)
-                diff += weights.getWeight(j, i) * visibleLayer->listOfUnits[j]->pingState();
+        for (int i = 0; i < topSize; ++i) {
+            for (int j = 0; j < botSize; ++j)
+                diff += weights(j, i) * botLayer->pingState(j);
             if (diff > 0)
-                hiddenLayer->clampStateOfUnit(i, true);
+                topLayer->clampStateOfUnit(i, true);
             else
-                hiddenLayer->clampStateOfUnit(i, false);
+                topLayer->clampStateOfUnit(i, false);
             diff = 0.0;
         }
     }
@@ -112,7 +112,7 @@ using namespace arma;
 //  This method is called extensively in the Boltzmann::Machine::iterateLearning method.
 
     void Boltzmann::Machine::adjustWeights(bool increment, double learnRate) {
-        Matrix gates(visibleLayer->getStates(), hiddenLayer->getStates(), learnRate);   // Calculates inner product v^t*h
+        mat gates = kron(botLayer->getStates(), topLayer->getStates()) * learnRate;     // Calculates inner product v^t*h
         if (increment)
             weights += gates;
         else
@@ -138,12 +138,12 @@ using namespace arma;
 
     void Boltzmann::Machine::backPropagationTuning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges, bool softMax, double decayRate, unsigned decayStep) {
         double decay = 1.0; unsigned counter = 0;
-        std::vector<int> origInputs = visibleLayer->getStates();
+        mat origInputs = botLayer->getStates();
         for (int i = 0; i < numberOfExchanges; ++i, ++counter) {
             if (counter >= decayStep)
                 decay *= decay;
 //            std::cout << "Learning: " << i << std::endl;        // Debug
-            origInputs = visibleLayer->getStates();
+            origInputs = botLayer->getStates();
             std::cout << "Init:\n";
         displayMachineState();
             
@@ -168,7 +168,7 @@ using namespace arma;
             std::cout << "Hiddens mapped from fantasy visibles, connections decremented:\n";
         displayMachineState();
             
-            visibleLayer->clampStateOfUnits(origInputs);
+            botLayer->clampStateOfUnits(origInputs);
         }
     }
 
@@ -178,20 +178,20 @@ using namespace arma;
 
     void Boltzmann::Machine::replaceVisibleLayer(vec inputs) {
         for (int i = 0; i < inputs.size(); ++i)
-            visibleLayer->clampStateOfUnit(i, (inputs[i] >= .5) ? (true) : (false));
+            botLayer->clampStateOfUnit(i, (inputs[i] >= .5));
     }
 
 //  Boltzmann::Machine Destructor
 //      deletes the visible and hidden layers and sets them to nullptr (if they aren't already nullptr's)
 
     Boltzmann::Machine::~Machine() {
-        if (visibleLayer != nullptr) {
-            delete visibleLayer;
-            visibleLayer = nullptr;
+        if (botLayer != nullptr) {
+            delete botLayer;
+            botLayer = nullptr;
         }
-        if (hiddenLayer != nullptr) {
-            delete hiddenLayer;
-            hiddenLayer = nullptr;
+        if (topLayer != nullptr) {
+            delete topLayer;
+            topLayer = nullptr;
         }
     }
 
@@ -210,38 +210,38 @@ using namespace arma;
     void Boltzmann::Machine::softMaxDeterministicUpPass() {
         double diff = 0.0;
         std::pair<double, unsigned> biggest = std::make_pair(-15.0, 0);
-        std::vector<int> origInputs = visibleLayer->getStates();
-        for (int i = 0; i < hiddenSize; ++i) {
-            for (int j = 0; j < weights.sizeOfLowerLayer; ++j)
-                diff += weights.getWeight(j, i) * origInputs[j];
+        mat origInputs = botLayer->getStates();
+        for (int i = 0; i < topSize; ++i) {
+            for (int j = 0; j < botSize; ++j)
+                diff += weights(j, i) * origInputs[j];
             if (diff > biggest.first) {
                 biggest.first = diff;
                 biggest.second = i;
             }
-            hiddenLayer->clampStateOfUnit(i, false);
+            topLayer->clampStateOfUnit(i, false);
             diff = 0.0;
         }
-        hiddenLayer->clampStateOfUnit(biggest.second, true);
+        topLayer->clampStateOfUnit(biggest.second, true);
     }
 
     void Boltzmann::Machine::displayMachineState() {
         std::cout << "\t";
-        for (int i = 0; i < hiddenSize; ++i) {
+        for (int i = 0; i < topSize; ++i) {
             std::cout << "h" << i%10;
-            if (hiddenLayer->listOfUnits[i]->pingState())
+            if (topLayer->pingState(i))
                 std::cout << "T\t";
             else
                 std::cout << "F\t";
         }
         std::cout << std::endl;
-        for (int j = 0; j < visSize; ++j) {
+        for (int j = 0; j < botSize; ++j) {
             std::cout << "v" << j%10;
-            if (visibleLayer->listOfUnits[j]->pingState())
+            if (botLayer->pingState(j))
                 std::cout << "T\t";
             else
                 std::cout << "F\t";
-            for (int k = 0; k < hiddenSize; ++k) {
-                double z = weights.getWeight(j, k);
+            for (int k = 0; k < topSize; ++k) {
+                double z = weights(j, k);
                 if (z >= .35)
                     std::cout << "+\t";
                 else if (z >= -.35)
@@ -258,16 +258,13 @@ using namespace arma;
     }
 
     void Boltzmann::Machine::emplaceRandomVisibleLayer() {
-        std::vector<bool> inputs;
+        vec inputs(botSize);
         srand(time(nullptr));
-        for (int i = 0; i < visSize; ++i) {
+        for (int i = 0; i < botSize; ++i) {
             double out = rand() % 1000;
             double real = out / 1000;
-            if (real < .50)
-                inputs.push_back(true);
-                else
-                    inputs.push_back(false);
-                    }
+            inputs(i) = (real < .50);
+        }
         replaceVisibleLayer(inputs);
     }
 /* End Experimental Section */

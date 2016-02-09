@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include "Unit.h"
 #include <vector>
+#include <armadillo>
 
 namespace Boltzmann {
     class Layer {
@@ -29,10 +30,11 @@ namespace Boltzmann {
             Layer(const Layer& rhs);
         
         //  Misc. Methods
-            std::vector<int> getStates() const;
+            arma::mat getStates() const;
             void clampStateOfUnit (size_t unitIndex, bool state);
-            void clampStateOfUnits (std::vector<int> states);
+            void clampStateOfUnits (arma::mat states);
             bool ping (size_t unitIndex, double eDiff, BoltzmannDistribution& bd) const;
+            bool pingState(size_t unitIndex) const { return listOfUnits[unitIndex]->pingState(); }
         
         //  Layer Destructor
             ~Layer();
