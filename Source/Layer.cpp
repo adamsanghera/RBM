@@ -46,8 +46,18 @@ using namespace arma;
 //  Boltzmann::Layer::getStates
 //  -   Returns a vector of integers to represent the states of units contained within this layer.
 
-    mat Boltzmann::Layer::getStates() const {
-        mat p = mat(1, listOfUnits.size());
+    vec Boltzmann::Layer::getStatesCol() const {
+        vec p = mat(1, listOfUnits.size());
+        for (int i = 0; i < listOfUnits.size(); ++i)
+            p(i) = (listOfUnits[i]->pingState());
+        return p;
+    }
+
+//  Boltzmann::Layer::getStates
+//  -   Returns a vector of integers to represent the states of units contained within this layer.
+
+    rowvec Boltzmann::Layer::getStatesRow() const {
+        rowvec p = mat(1, listOfUnits.size());
         for (int i = 0; i < listOfUnits.size(); ++i)
             p(i) = (listOfUnits[i]->pingState());
         return p;
@@ -57,9 +67,9 @@ using namespace arma;
 //  -   Clamps the state of all units in this layer to match the states contained within the input vector of integers, 'states'.
 //  ~   If the integers within states are not 0 or 1, they will be forced into an appropriate binary value.  i.e. 193 -> 1.
 
-    void Boltzmann::Layer::clampStateOfUnits(mat states) {
+    void Boltzmann::Layer::clampStateOfUnits(vec& states) {
         for (int i = 0; i < states.size(); ++i)
-            clampStateOfUnit(i, states[i]);
+            clampStateOfUnit(i, states(i));
     }
 
 //  Boltzmann::Layer ping

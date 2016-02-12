@@ -30,9 +30,10 @@ namespace Boltzmann {
             Layer(const Layer& rhs);
         
         //  Misc. Methods
-            arma::mat getStates() const;
+            arma::vec getStatesCol() const;         //  We have two separate methods for getting states to satisfy the
+            arma::rowvec getStatesRow() const;      //  input requirements of arma::kron in Machine::adjustWeights. 
             void clampStateOfUnit (size_t unitIndex, bool state);
-            void clampStateOfUnits (arma::mat states);
+            void clampStateOfUnits (arma::vec& states);
             bool ping (size_t unitIndex, double eDiff, BoltzmannDistribution& bd) const;
             bool pingState(size_t unitIndex) const { return listOfUnits[unitIndex]->pingState(); }
         

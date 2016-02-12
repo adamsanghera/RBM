@@ -18,9 +18,15 @@ using namespace arma;
     Boltzmann::Machine::Machine(size_t botSize, size_t topSize)
     :   botLayer(new Layer(botSize)),
         topLayer(new Layer(topSize)),
-        weights(botSize, topSize),
+        weights(topSize, botSize, fill::randu),
         botSize(botSize),
-        topSize(topSize) {}
+        topSize(topSize) {
+            srand(time(nullptr));
+            for (int i = 0; i < botSize*topSize; ++i) {
+                double test = (rand() % 1000) / 1000;
+                weights(i) *= (test < .50) ? (1) : (-1);
+            }
+        }
 
 //  Machine Constructor B
 //  Uses pointers to two Layers to construct a Machine
@@ -46,7 +52,7 @@ using namespace arma;
 
     void Boltzmann::Machine::stochasticUpPass(Boltzmann::BoltzmannDistribution& bd) {
         double diff = 0.0;
-        mat origInputs = botLayer->getStates();
+        vec origInputs = botLayer->getStatesCol();
         for (int i = 0; i < topSize; ++i) {
             for (int j = 0; j < botSize; ++j)
                 diff += weights(j, i) * origInputs(j);
@@ -112,7 +118,16 @@ using namespace arma;
 //  This method is called extensively in the Boltzmann::Machine::iterateLearning method.
 
     void Boltzmann::Machine::adjustWeights(bool increment, double learnRate) {
-        mat gates = kron(botLayer->getStates(), topLayer->getStates()) * learnRate;     // Calculates inner product v^t*h
+        mat gates = kron(botLayer->getStatesRow(), topLayer->getStatesCol()) * learnRate;     // Calculates inner product v^t*h
+        //  According to armadillo, kron creates a matrix that is mn x pq
+        //      botLayer has n rows and p cols      ( 1, bs )
+        //      topLayer has m rows and q cols      ( ts, 1 )
+        //  Output = topSize rows by botSize columns
+        //
+        //  When we interface with mat's, we access column first, then row.
+        //  We will have botSize columns and topSize rows
+        //      --> weights(bot, top)
+        
         if (increment)
             weights += gates;
         else
@@ -138,12 +153,12 @@ using namespace arma;
 
     void Boltzmann::Machine::backPropagationTuning(double learnRate, Boltzmann::BoltzmannDistribution& bd, size_t numberOfExchanges, bool softMax, double decayRate, unsigned decayStep) {
         double decay = 1.0; unsigned counter = 0;
-        mat origInputs = botLayer->getStates();
+        vec origInputs = botLayer->getStatesCol();
         for (int i = 0; i < numberOfExchanges; ++i, ++counter) {
             if (counter >= decayStep)
                 decay *= decay;
 //            std::cout << "Learning: " << i << std::endl;        // Debug
-            origInputs = botLayer->getStates();
+            origInputs = botLayer->getStatesCol();
             std::cout << "Init:\n";
         displayMachineState();
             
@@ -210,10 +225,10 @@ using namespace arma;
     void Boltzmann::Machine::softMaxDeterministicUpPass() {
         double diff = 0.0;
         std::pair<double, unsigned> biggest = std::make_pair(-15.0, 0);
-        mat origInputs = botLayer->getStates();
+        vec origInputs = botLayer->getStatesCol();
         for (int i = 0; i < topSize; ++i) {
             for (int j = 0; j < botSize; ++j)
-                diff += weights(j, i) * origInputs[j];
+                diff += weights(j, i) * origInputs(j);
             if (diff > biggest.first) {
                 biggest.first = diff;
                 biggest.second = i;
