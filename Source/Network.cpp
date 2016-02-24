@@ -65,13 +65,15 @@ using namespace arma;
         // Create the input vector
         arma_rng::set_seed_random();
         vec newInputLayer(sizeOfBaseLayer, fill::randu);
+        std::cout << newInputLayer << std::endl;
         for (int i = 0; i < newInputLayer.size(); ++i) {
-            float j = newInputLayer(i);
+            float j = newInputLayer[i];
             if (j < .5)
-                newInputLayer(i) = 0;
+                newInputLayer[i] = 0;
             else
-                newInputLayer(i) = 1;
+                newInputLayer[i] = 1;
         }
+        listOfMachines[0]->replaceVisibleLayer(newInputLayer);
     }
 
 //  Boltzmann::Network::generateInput

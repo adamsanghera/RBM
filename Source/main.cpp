@@ -25,7 +25,37 @@ int main() {
     mat A = randu<mat>(1,5);
     mat B = randu<mat>(1,5);
 
-    cout << A*10 << endl;
+//    cout << "Testing for memory Leaks" << endl;
+//    
+//    cout << "Testing Machine class" << endl;
+//    for (int i = 0; i < 100; ++i) {
+//        Machine* m = new Machine(1000,1000);
+//        delete m;
+//    }
+//    cout << "Testing Unit class" << endl;
+//    for (int i = 0; i < 100; ++i) {
+//        Unit* u = new Unit(true);
+//        delete u;
+//    }
+//    cout << "Testing Network class" << endl;
+//    for (int i = 0; i < 100; ++i) {
+//        Network* n = new Network(1000,2000);
+//        delete n;
+//    }
+//    cout << "Testing Layer class" << endl;
+//    for (int i = 0; i < 10000; ++i) {
+//        Layer* l = new Layer(1000);
+//        delete l;
+//    }
+    
+    cout << "Testing Matrix multiplication" << endl;
+    
+    Network* n = new Network(8, 3);
+    n->swapWithRandomInput();
+    n->printNetwork();
+    n->iterateLearnCycle(.99, 5);
+    
+    n->printNetwork();
     
 //    Machine* mp = new Machine (10,5);
 //    mp->emplaceRandomVisibleLayer();

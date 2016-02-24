@@ -47,7 +47,7 @@ using namespace arma;
 //  -   Returns a vector of integers to represent the states of units contained within this layer.
 
     vec Boltzmann::Layer::getStatesCol() const {
-        vec p = mat(1, listOfUnits.size());
+        vec p = mat(listOfUnits.size(), 1);
         for (int i = 0; i < listOfUnits.size(); ++i)
             p(i) = (listOfUnits[i]->pingState());
         return p;

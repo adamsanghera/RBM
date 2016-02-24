@@ -23,8 +23,8 @@ using namespace arma;
         topSize(topSize) {
             srand(time(nullptr));
             for (int i = 0; i < botSize*topSize; ++i) {
-                double test = (rand() % 1000) / 1000;
-                weights(i) *= (test < .50) ? (1) : (-1);
+                float test = (rand() % 1000);
+                weights(i) *= (test < 500) ? (1) : (-1);
             }
         }
 
@@ -55,7 +55,7 @@ using namespace arma;
         vec origInputs = botLayer->getStatesCol();
         for (int i = 0; i < topSize; ++i) {
             for (int j = 0; j < botSize; ++j)
-                diff += weights(j, i) * origInputs(j);
+                diff += weights(i, j) * origInputs(j);
             topLayer->ping(i, diff, bd);
             diff = 0.0;
         }
@@ -73,7 +73,7 @@ using namespace arma;
         double diff = 0.0;
         for (int i = 0; i < botSize; ++i) {
             for (int j = 0; j < topSize; ++j)
-                diff += weights(i, j) * topLayer->pingState(j);
+                diff += weights(j, i) * topLayer->pingState(j);
             botLayer->ping(i, diff, bd);
             diff = 0.0;
         }
@@ -94,7 +94,7 @@ using namespace arma;
         double diff = 0.0;
         for (int i = 0; i < topSize; ++i) {
             for (int j = 0; j < botSize; ++j)
-                diff += weights(j, i) * botLayer->pingState(j);
+                diff += weights(i, j) * botLayer->pingState(j);
             if (diff > 0)
                 topLayer->clampStateOfUnit(i, true);
             else
@@ -256,7 +256,7 @@ using namespace arma;
             else
                 std::cout << "F\t";
             for (int k = 0; k < topSize; ++k) {
-                double z = weights(j, k);
+                double z = weights(k, j);
                 if (z >= .35)
                     std::cout << "+\t";
                 else if (z >= -.35)
