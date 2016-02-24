@@ -29,6 +29,14 @@ namespace Boltzmann {
             void randomizeWeights();
             double getWeight(size_t lowerUnitIndex, size_t higherUnitIndex) const { return weights[lowerUnitIndex][higherUnitIndex]; }
             void adjustWeight(size_t lowerUnitIndex, size_t higherUnitIndex, double newWeight) { weights[lowerUnitIndex][higherUnitIndex]=newWeight;}
+            void printWeight() const {
+                for (int i = 0; i < sizeOfLowerLayer; ++i) {
+                    for (int j = 0; j < sizeOfHigherLayer; ++j) {
+                        std::cout << weights[i][j] << "\t";
+                    }
+                    std::cout << "\n";
+                }
+            }
         
         //  Arithmetic Operators
             Matrix& operator+=(const Matrix& rhs);

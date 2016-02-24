@@ -18,7 +18,7 @@ using namespace arma;
     Boltzmann::Machine::Machine(size_t botSize, size_t topSize)
     :   botLayer(new Layer(botSize)),
         topLayer(new Layer(topSize)),
-        weights(topSize, botSize, fill::randu),
+        weights(botSize, topSize, fill::randu),
         botSize(botSize),
         topSize(topSize) {
             srand(time(nullptr));
@@ -55,7 +55,7 @@ using namespace arma;
         vec origInputs = botLayer->getStatesCol();
         for (int i = 0; i < topSize; ++i) {
             for (int j = 0; j < botSize; ++j)
-                diff += weights(i, j) * origInputs(j);
+                diff += weights(j, i) * origInputs(j);
             topLayer->ping(i, diff, bd);
             diff = 0.0;
         }
@@ -73,7 +73,7 @@ using namespace arma;
         double diff = 0.0;
         for (int i = 0; i < botSize; ++i) {
             for (int j = 0; j < topSize; ++j)
-                diff += weights(j, i) * topLayer->pingState(j);
+                diff += weights(i, j) * topLayer->pingState(j);
             botLayer->ping(i, diff, bd);
             diff = 0.0;
         }
@@ -94,7 +94,7 @@ using namespace arma;
         double diff = 0.0;
         for (int i = 0; i < topSize; ++i) {
             for (int j = 0; j < botSize; ++j)
-                diff += weights(i, j) * botLayer->pingState(j);
+                diff += weights(j, i) * botLayer->pingState(j);
             if (diff > 0)
                 topLayer->clampStateOfUnit(i, true);
             else
@@ -118,7 +118,7 @@ using namespace arma;
 //  This method is called extensively in the Boltzmann::Machine::iterateLearning method.
 
     void Boltzmann::Machine::adjustWeights(bool increment, double learnRate) {
-        mat gates = kron(botLayer->getStatesRow(), topLayer->getStatesCol()) * learnRate;     // Calculates inner product v^t*h
+        mat gates = (kron(botLayer->getStatesRow(), topLayer->getStatesCol()) * learnRate).t();     // Calculates inner product v^t*h
         //  According to armadillo, kron creates a matrix that is mn x pq
         //      botLayer has n rows and p cols      ( 1, bs )
         //      topLayer has m rows and q cols      ( ts, 1 )
@@ -256,7 +256,7 @@ using namespace arma;
             else
                 std::cout << "F\t";
             for (int k = 0; k < topSize; ++k) {
-                double z = weights(k, j);
+                double z = weights(j, k);
                 if (z >= .35)
                     std::cout << "+\t";
                 else if (z >= -.35)
